@@ -1,14 +1,26 @@
-# napari-allencell-segmenter
-
-[![License](https://img.shields.io/pypi/l/napari-allencell-segmenter.svg?color=green)](https://github.com/AllenCell/napari-allencell-segmenter/raw/main/LICENSE)
-[![PyPI](https://img.shields.io/pypi/v/napari-allencell-segmenter.svg?color=green)](https://pypi.org/project/napari-allencell-segmenter)
-[![Python Version](https://img.shields.io/pypi/pyversions/napari-allencell-segmenter.svg?color=green)](https://python.org)
-[![tests](https://github.com/AllenCell/napari-allencell-segmenter/workflows/tests/badge.svg)](https://github.com/AllenCell/napari-allencell-segmenter/actions)
-[![codecov](https://codecov.io/gh/AllenCell/napari-allencell-segmenter/branch/main/graph/badge.svg)](https://codecov.io/gh/AllenCell/napari-allencell-segmenter)
+# organelle-segmenter-plugin
 
 
-A plugin that enables 3D image segmentation provided by Allen Institute for Cell Science
+[![License BSD-3](https://img.shields.io/pypi/l/napari-infer-subc.svg?color=green)](https://github.com/ergonyc/napari-infer-subc/raw/main/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/napari-infer-subc.svg?color=green)](https://pypi.org/project/napari-infer-subc)
+[![Python Version](https://img.shields.io/pypi/pyversions/napari-infer-subc.svg?color=green)](https://python.org)
+[![tests](https://github.com/ergonyc/napari-infer-subc/workflows/tests/badge.svg)](https://github.com/ergonyc/napari-infer-subc/actions)
+[![codecov](https://codecov.io/gh/ergonyc/napari-infer-subc/branch/main/graph/badge.svg)](https://codecov.io/gh/ergonyc/napari-infer-subc)
+[![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-infer-subc)](https://napari-hub.org/plugins/napari-infer-subc)
 
+🚨🚨🚨🚨 WARNING 🚨🚨🚨🚨 
+This is NOT yet working
+
+ 🚧 WIP 🚧
+A plugin that enables image segmentation of organelles from linearly-unmixed florescence images based on the segmenter tools provided by Allen Institute for Cell Science.  This fork is NOT a 3D (volumetric) segmentation at this time.  Instead it is a proof-of-concept which infers an "best" Z-slice / Z-projection and performes a 2D analysis.
+
+
+A [napari](https://napari.org/stable/) plugin to infer subcellular components leveraging [infer-subc](https://github.com/ergonyc/infer-subc) and [aics-segmenter]( https://allencell.org/segmenter )
+
+## GOAL
+To measure shape, position, size, and interaction of eight organelles/cellular components (Nuclei (NU), Lysosomes (LS),Mitochondria (MT), Golgi (GL), Peroxisomes (PO), Endoplasmic Reticulum (ER), Lipid Droplet (LD), and SOMA) during differentiation of iPSCs, in order to understand the Interactome / Spatiotemporal coordination.
+
+ 🚧 WIP 🚧
 The Allen Cell & Structure Segmenter plugin for napari provides an intuitive graphical user interface to access the powerful segmentation capabilities of an open source 3D segmentation software package developed and maintained by the Allen Institute for Cell Science (classic workflows only with v1.0). ​[The Allen Cell & Structure Segmenter](https://allencell.org/segmenter) is a Python-based open source toolkit developed at the Allen Institute for Cell Science for 3D segmentation of intracellular structures in fluorescence microscope images. This toolkit brings together classic image segmentation and iterative deep learning workflows first to generate initial high-quality 3D intracellular structure segmentations and then to easily curate these results to generate the ground truths for building robust and accurate deep learning models. The toolkit takes advantage of the high replicate 3D live cell image data collected at the Allen Institute for Cell Science of over 30 endogenous fluorescently tagged human induced pluripotent stem cell (hiPSC) lines. Each cell line represents a different intracellular structure with one or more distinct localization patterns within undifferentiated hiPS cells and hiPSC-derived cardiomyocytes.
 
 More details about Segmenter can be found at https://allencell.org/segmenter
@@ -25,17 +37,17 @@ and review the napari docs for plugin developers:
 https://napari.org/docs/plugins/index.html
 -->
 
-## Installation
+## Installation 🚧 WIP 🚧
 
-### Option 1 (recommended):
+### Option 1 (recommended): 🚧 WIP 🚧
 
 After you installed the lastest version of napari, you can go to "Plugins" --> "Install/Uninstall Package(s)". Then, you will be able to see all available napari plugins and you can find us by name `napari-allencell-segmenter`. Just click the "install" button to install the Segmenter plugin.
 
-### Option 2:
+### Option 2: 🚧 WIP 🚧
 
-You can also install `napari-allencell-segmenter` via [pip]:
+You can also install `organelle-segmenter-plugin` via [pip]:
 
-    pip install napari-allencell-segmenter
+    pip install organelle-segmenter-plugin
 
 ## Quick Start
 
