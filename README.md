@@ -1,12 +1,12 @@
 # organelle-segmenter-plugin
 
 
-[![License BSD-3](https://img.shields.io/pypi/l/napari-infer-subc.svg?color=green)](https://github.com/ergonyc/napari-infer-subc/raw/main/LICENSE)
-[![PyPI](https://img.shields.io/pypi/v/napari-infer-subc.svg?color=green)](https://pypi.org/project/napari-infer-subc)
-[![Python Version](https://img.shields.io/pypi/pyversions/napari-infer-subc.svg?color=green)](https://python.org)
-[![tests](https://github.com/ergonyc/napari-infer-subc/workflows/tests/badge.svg)](https://github.com/ergonyc/napari-infer-subc/actions)
-[![codecov](https://codecov.io/gh/ergonyc/napari-infer-subc/branch/main/graph/badge.svg)](https://codecov.io/gh/ergonyc/napari-infer-subc)
-[![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-infer-subc)](https://napari-hub.org/plugins/napari-infer-subc)
+[![License BSD-3](https://img.shields.io/pypi/l/organelle-segmenter-plugin.svg?color=green)](https://github.com/ergonyc/organelle-segmenter-plugin/raw/main/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/organelle-segmenter-plugin.svg?color=green)](https://pypi.org/project/organelle-segmenter-plugin)
+[![Python Version](https://img.shields.io/pypi/pyversions/organelle-segmenter-plugin.svg?color=green)](https://python.org)
+[![tests](https://github.com/ergonyc/organelle-segmenter-plugin/workflows/tests/badge.svg)](https://github.com/ergonyc/organelle-segmenter-plugin/actions)
+[![codecov](https://codecov.io/gh/ergonyc/organelle-segmenter-plugin/branch/main/graph/badge.svg)](https://codecov.io/gh/ergonyc/organelle-segmenter-plugin)
+[![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/organelle-segmenter-plugin)](https://napari-hub.org/plugins/organelle-segmenter-plugin)
 
 🚨🚨🚨🚨 WARNING 🚨🚨🚨🚨 
 This is NOT yet working

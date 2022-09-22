@@ -78,13 +78,13 @@ extra_requirements = {
 
 
 # https://github.com/pypa/setuptools_scm
-use_scm = {"write_to": "napari_allencell_segmenter/_version.py"}
+use_scm = {"write_to": "organelle_segmenter_plugin/_version.py"}
 
 setup(
-    name="napari-allencell-segmenter",
+    name="organelle-segmenter-plugin",
     author="Allen Institute for Cell Science",
     license="BSD-3",
-    url="https://github.com/AllenCell/napari-allencell-segmenter",
+    url="https://github.com/ergonyc/organelle-segmenter-plugin",
     description="A plugin that enables 3D image segmentation provided by Allen Institute for Cell Science",
     long_description=read("README.md"),
     long_description_content_type="text/markdown",
@@ -93,7 +93,7 @@ setup(
     install_requires=requirements,
     use_scm_version=use_scm,
     setup_requires=setup_requirements,
-    test_suite="napari_allencell_segmenter/_tests",
+    test_suite="organelle_segmenter_plugin/_tests",
     tests_require=test_requirements,
     extras_require=extra_requirements,
     include_package_data=True,
@@ -115,11 +115,11 @@ setup(
     ],
     entry_points={
         "napari.plugin": [
-            "napari-allencell-segmenter = napari_allencell_segmenter",
+            "organelle-segmenter-plugin = organelle_segmenter_plugin",
         ],
     },
     # Do not edit this string manually, always use bumpversion
     # Details in CONTRIBUTING.rst
-    version="2.1.3",
+    version="0.0.1",
     zip_safe=False,
 )

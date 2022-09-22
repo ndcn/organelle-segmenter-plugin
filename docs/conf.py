@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# napari-allencell-segmenter documentation build configuration file, created by
+# organelle-segmenter-plugin documentation build configuration file, created by
 # sphinx-quickstart on Thu Oct  1 00:43:18 2015.
 #
 # This file is execfile()d with the current directory set to its
@@ -48,7 +48,7 @@ source_suffix = ".rst"
 master_doc = "index"
 
 # General information about the project.
-project = "napari-allencell-segmenter"
+project = "organelle-segmenter-plugin"
 copyright = "2015, Jamie Sherman"
 author = "Jamie Sherman"
 
@@ -256,7 +256,7 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [(master_doc, "napari-cookiecutterplugin_name", "napari-allencell-segmenter Documentation", [author], 1)]
+man_pages = [(master_doc, "napari-cookiecutterplugin_name", "organelle-segmenter-plugin Documentation", [author], 1)]
 
 # If true, show URL addresses after external links.
 # man_show_urls = False
@@ -271,7 +271,7 @@ texinfo_documents = [
     (
         master_doc,
         "napari-cookiecutterplugin_name",
-        "napari-allencell-segmenter Documentation",
+        "organelle-segmenter-plugin Documentation",
         author,
         "napari-cookiecutterplugin_name",
         "One line description of project.",

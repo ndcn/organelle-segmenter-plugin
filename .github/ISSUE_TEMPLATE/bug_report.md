@@ -16,7 +16,7 @@ This text document allows the plugin developers to gather the information they n
 ### Error message
 ```
 [Paste your napari error output here, if any.]
-* If you can't find the error message, go to Plugins > Plugin Errors > napari-allencell-segmenter
+* If you can't find the error message, go to Plugins > Plugin Errors > organelle-segmenter-plugin
 * Most of the time, the most helpful information is at the very bottom of the error output
 ```
 

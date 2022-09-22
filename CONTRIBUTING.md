@@ -5,20 +5,20 @@ helps, and credit will always be given.
 
 ## Get Started!
 
-Ready to contribute? Here's how to set up `napari_allencell_segmenter` for local development.
+Ready to contribute? Here's how to set up `organelle_segmenter_plugin` for local development.
 
-1. Fork the `napari_allencell_segmenter` repo on GitHub.
+1. Fork the `organelle_segmenter_plugin` repo on GitHub.
 
 2. Clone your fork locally:
 
     ```bash
-    git clone git@github.com:{your_name_here}/napari_allencell_segmenter.git
+    git clone git@github.com:{your_name_here}/organelle_segmenter_plugin.git
     ```
 
 3. Install the project in editable mode. (It is also recommended to work in a virtualenv or anaconda environment):
 
     ```bash
-    cd napari_allencell_segmenter/
+    cd organelle_segmenter_plugin/
     pip install -e .[dev]
     ```
 
