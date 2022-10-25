@@ -1,2 +1,6 @@
+
+[tool.setuptools_scm]
+write_to = "src/infer_subc_plugin/_version.py"
+
 [tool.black]
 line-length = 120

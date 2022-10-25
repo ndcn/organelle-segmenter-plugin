@@ -48,9 +48,9 @@ source_suffix = ".rst"
 master_doc = "index"
 
 # General information about the project.
-project = "organelle-segmenter-plugin"
-copyright = "2015, Jamie Sherman"
-author = "Jamie Sherman"
+project = "organelle-segmenter-npe2"
+copyright = "2022, Andy Henrie"
+author = "Andy Henrie"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
