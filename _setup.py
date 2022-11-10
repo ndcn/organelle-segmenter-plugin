@@ -98,7 +98,7 @@ setup(
     extras_require=extra_requirements,
     include_package_data=True,
     classifiers=[
-        "Development Status :: 5 - Production/Stable",
+        "Development Status :: 3 - Alpha",
         "Intended Audience :: Science/Research",
         "Framework :: napari",
         "Topic :: Scientific/Engineering",

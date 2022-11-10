@@ -1,8 +1,9 @@
 from typing import List
 
-from aicssegmentation.workflow import WorkflowDefinition
-import cv2
-import numpy as np
+# from aicssegmentation.workflow import WorkflowDefinition
+from infer_subc_2d.workflow import InferSubC2dWorkflowDefinition as WorkflowDefinition
+
+
 from qtpy.QtWidgets import (
     QPushButton,
     QHBoxLayout,
@@ -10,6 +11,7 @@ from qtpy.QtWidgets import (
     QLabel,
     QWidget,
 )
+
 from qtpy.QtGui import QIcon, QPixmap, QImage
 from qtpy import QtCore
 from qtpy.QtCore import Signal
@@ -17,11 +19,15 @@ from qtpy.QtCore import Signal
 from organelle_segmenter_plugin2.widgets.form import Form, FormRow
 from organelle_segmenter_plugin2._style import PAGE_CONTENT_WIDTH, Style
 
+# # JAH
+# from qtpy.QtGui import QStandardItem, QStandardItemModel
+# from organelle_segmenter_plugin2.util.ui_utils import UiUtils
 
-class WorkflowThumbnails(QWidget):
+
+class WorkflowDropDown(QWidget):
 
     """
-    A widget containing thumbnail images for workflows.
+    A widget containing buttons for workflows. ()
 
     Params:
         workflow_defs (List[WorkflowDefinition]): List of
@@ -45,6 +51,8 @@ class WorkflowThumbnails(QWidget):
         """
         Load given Workflow definitions and rebuild the grid
         """
+        print("_LOAD_WORKFLOWS")
+
         if workflows is None:
             raise ValueError("workflows")
 
@@ -55,19 +63,21 @@ class WorkflowThumbnails(QWidget):
         self.setLayout(layout)  # reset setLayout
 
         self._workflows = workflows
+
+        ## LABELS + BUTTONS
         self._add_labels()
-        self._add_buttons(workflows)
+        self._add_buttons(workflows)  # ACTUALLY MAKE A DROPDOWN
 
     def _add_labels(self):
         """
         Add widgets and set the layout for the Step 3 instructions and the workflow buttons
         """
+        print("_ADD_LABELS")
         self.step_3_label = QLabel("3.")
         self.step_3_label.setAlignment(QtCore.Qt.AlignTop)
-        self.step_3_instructions = QLabel(
-            "Click a button below that most closely resembles your image channel to select & start a workflow"
-        )
+        self.step_3_instructions = QLabel("Choose your worfklow .....")
         self.step_3_instructions.setWordWrap(True)
+
         step_3 = QWidget()
         step_3.setLayout(Form([FormRow(self.step_3_label, self.step_3_instructions)], (0, 0, 11, 0)))
 
@@ -80,9 +90,9 @@ class WorkflowThumbnails(QWidget):
         column_layout.setContentsMargins(11, 11, 11, 0)
         self.column_labels.setLayout(column_layout)
 
-        image_input_label = QLabel("Image input")
+        image_input_label = QLabel("left column")
         image_input_label.setAlignment(QtCore.Qt.AlignCenter)
-        segmentation_output_label = QLabel("Segmentation output")
+        segmentation_output_label = QLabel("right column")
         segmentation_output_label.setAlignment(QtCore.Qt.AlignCenter)
         self.column_labels.layout().addWidget(image_input_label)
         self.column_labels.layout().addWidget(segmentation_output_label)
@@ -91,91 +101,24 @@ class WorkflowThumbnails(QWidget):
         self.column_labels.setObjectName("columnLabelsDisabled")
         self.layout().addWidget(self.column_labels, alignment=QtCore.Qt.AlignCenter)
 
-
-
-    def update_workflows(self, workflows: List[WorkflowDefinition], selected_workflow: WorkflowDefinition = None):
-        """
-        Update / repopulate the list of selectable workflows
-        Inputs:
-            workflows: List of workflows names
-        """
-        self._reset_combo_box(self._combo_channels)
-
-        if workflows is None or len(workflows) == 0:
-            self._combo_workflows.setEnabled(False)
-        else:
-            model = QStandardItemModel()
-            model.appendRow(QStandardItem(self._combo_workflows.itemText(0)))
-
-            for workflow in workflows:
-                item = QStandardItem(workflow.name)
-                item.setData(workflow, QtCore.Qt.UserRole)
-                model.appendRow(item)
-
-            self._combo_workflows.setModel(model)
-
-            if selected_workflow is not None:
-                self._combo_workflows.setCurrentText(selected_workflow.name)
-
-            self._combo_workflows.setEnabled(True)
-
-
-
     def _add_buttons(self, workflows: List[WorkflowDefinition]):
         """
         Add all buttons given a List of WorkflowDefinitions
         """
-        # JAH dropdown to replace WorkflowThumbnails widget
-        workflows_dropdown = UiUtils.dropdown_row("2.", "Select a workflow", enabled=False)
-        self._combo_workflows = workflows_dropdown.widget
-        self._combo_workflows.setStyleSheet("QComboBox { combobox-popup: 0; }")
-        self._combo_workflows.setMaxVisibleItems(20)
-        self._combo_workflows.activated.connect(self._combo_workflows_activated)
-        workflows_selections = QWidget()
-        workflows_selections.setLayout(Form([lworkflows_dropdown]))
 
-
+        # layout = QHBoxLayout()
+        # layout.setSpacing(5)
         for workflow in workflows:
-            # Some images are RGBA and others are Grayscale
-            # TODO?: convert all images to RBGA
-            pre: np.ndarray = workflow.thumbnail_pre
-            post: np.ndarray = workflow.thumbnail_post
-
-            # TODO: We need a way to a) track dimension order if present in metadata and b) try to guess dimension order
-            color_channel_size: int = min(np.shape(workflow.thumbnail_pre))
-            min_index: int = np.shape(workflow.thumbnail_pre).index(color_channel_size)
-
-            # If RGBA convert to grayscale
-            if len(workflow.thumbnail_pre.shape) > 2:
-                # cv2 expects color channel dim to be last index
-                pre = cv2.cvtColor(np.moveaxis(workflow.thumbnail_pre, min_index, -1), cv2.COLOR_RGBA2GRAY)
-            if len(workflow.thumbnail_post.shape) > 2:
-                # cv2 expects color channel dim to be last index
-                post = cv2.cvtColor(np.moveaxis(workflow.thumbnail_post, min_index, -1), cv2.COLOR_RGBA2GRAY)
-            # Stitch Image
-            image_stitched: np.ndarray = np.hstack([pre, post])
-            button: QPushButton = QPushButton("")
-            # Get np image into QPixmap
-            image: QPixmap = QPixmap(
-                QImage(image_stitched.data, image_stitched.shape[1], image_stitched.shape[0], QImage.Format_Indexed8)
-            )
-            button.setIcon(QIcon(image))
-            button.setIconSize(QtCore.QSize(PAGE_CONTENT_WIDTH - 40, 200))
-            button.setFixedSize(PAGE_CONTENT_WIDTH, 200)
+            button = QPushButton(workflow.name)
+            button.setFixedWidth(120)
             button.setToolTip(workflow.name)
-
             button.setEnabled(False)
             button.setObjectName(workflow.name)
             button.clicked.connect(self._workflow_button_clicked)
-
             self.layout().addWidget(button)
+        #     layout.addWidget(button)
 
-    # # JAH: 
-    # def _combo_workflows_activated(self, index: int):
-    #     if index == 0:
-    #         self._controller.unselect_workflow()
-    #     else:
-    #         self._controller.select_workflow(self._combo_channels.itemData(index, role=QtCore.Qt.UserRole))
+        # self._layout.addLayout(layout)
 
     def setEnabled(self, enabled: bool) -> None:
         super().setEnabled(enabled)

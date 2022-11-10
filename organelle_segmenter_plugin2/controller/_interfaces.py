@@ -48,14 +48,15 @@ class IWorkflowSelectController(ABC):
         """
         pass
 
-    @abstractmethod
-    def unselect_workflow(self, workflow: str):
-        """
-        Handle user selection of workflow
-        Inputs
-            workflow: name of the workflow to select
-        """
-        pass
+    # # JAH:
+    # @abstractmethod
+    # def unselect_workflow(self, workflow: str):
+    #     """
+    #     Handle user selection of workflow
+    #     Inputs
+    #         workflow: name of the workflow to select
+    #     """
+    #     pass
 
 
 class IWorkflowStepsController(ABC):

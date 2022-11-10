@@ -2,7 +2,11 @@ import copy
 from typing import Any, Dict, List, Union
 from PyQt5.QtWidgets import QComboBox, QPushButton, QFrame, QHBoxLayout
 
-from aicssegmentation.workflow import WorkflowStep, FunctionParameter, WidgetType
+# from aicssegmentation.workflow import WorkflowStep, FunctionParameter, WidgetType
+from aicssegmentation.workflow import FunctionParameter, WidgetType
+from infer_subc_2d.workflow import InferSubC2dWorkflowStep as WorkflowStep
+
+
 from magicgui.widgets import Slider
 from qtpy.QtCore import Qt
 from qtpy.QtWidgets import QLabel, QVBoxLayout, QWidget

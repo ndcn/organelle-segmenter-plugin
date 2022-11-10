@@ -67,12 +67,28 @@ class WorkflowSelectController(Controller, IWorkflowSelectController):
     def select_channel(self, channel: Channel):
         self.model.selected_channel = channel
         self._view.update_workflows(enabled=True)
+        # do somethign like select_layer above to populate the workflows
+
+        # # JAH: combo_box_workflwows..
+        # self.model.workflows = self._workflow_engine._workflow_config.get_available_workflows()
+        # #    self._workflow_engine._get_workflow_definition(workflow_name)
+        # #     self._workflow_engine._load_workflow_definitions()
+        # # self._view.update_workflows(self._workflow_engine._load_workflow_definitions(), None)
+        # # workflows = [
+        # #     self._workflow_engine._get_workflow_definition(workflow_name) for workflow_name in self.model.workflows
+        # # ]
+        # self._view.update_workflows(self.model.workflows, None)
 
     def unselect_channel(self):
         self.model.selected_channel = None
         self._view.update_workflows(enabled=False)
 
-    def select_workflow(self, workflow_name: str):
+        # # JAH: combo_box_workflows
+        # self.model.active_workflow = None
+        # # self.model.workflows = None # ???
+        # self._view.update_workflows(None)
+
+    def select_workflow(self, workflow_name):
         channel_data = self._layer_reader.get_channel_data(self.model.selected_channel.index, self.model.selected_layer)
         self.model.active_workflow = self._workflow_engine.get_executable_workflow(workflow_name, channel_data)
 
@@ -87,6 +103,11 @@ class WorkflowSelectController(Controller, IWorkflowSelectController):
         )  # layer 0
 
         self.router.workflow_steps()
+
+    # # JAH: hack... will i ever get here?
+    # def unselect_workflow(self):
+    #     self.model.active_workflow = None
+    #     self._view.update_workflows([])
 
     def _get_3D_layers(self) -> List[str]:
         """

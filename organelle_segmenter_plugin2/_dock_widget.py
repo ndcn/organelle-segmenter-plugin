@@ -1,11 +1,12 @@
-# Hook specifications: https://napari.org/docs/dev/plugins/hook_specifications.html
+# # Hook specifications: https://napari.org/docs/dev/plugins/hook_specifications.html
+# from napari_plugin_engine import napari_hook_implementation
+
 import napari
 
 from organelle_segmenter_plugin2.core.application import Application
-from napari_plugin_engine import napari_hook_implementation
 from qtpy.QtWidgets import QWidget, QVBoxLayout, QSizePolicy
 
-from typing import Union
+
 
 """
 The class name here gets converted to title case and gets displayed as both the title 
@@ -32,6 +33,6 @@ class BatchProcessingWidget(QWidget):
         self._application.router.batch_processing()  # Initialize first screen
 
 
-@napari_hook_implementation
-def napari_experimental_provide_dock_widget() -> Union[WorkflowEditorWidget, BatchProcessingWidget]:  # pragma: no-cover
-    return [(WorkflowEditorWidget, {"name": "Workflow editor"}), (BatchProcessingWidget, {"name": "Batch processing"})]
+# @napari_hook_implementation
+# def napari_experimental_provide_dock_widget() -> Union[WorkflowEditorWidget, BatchProcessingWidget]:  # pragma: no-cover
+#     return [(WorkflowEditorWidget, {"name": "Workflow editor"}), (BatchProcessingWidget, {"name": "Batch processing"})]

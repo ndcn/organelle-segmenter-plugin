@@ -1,6 +1,6 @@
 # bioformats_jar was screwing things up. with OME
-conda create -n napari-npe2 python=3.9 pip notebook 
-conda activate napari-npe2
+conda create -n napsubc python=3.9 pip notebook 
+conda activate napsubc
 pip install 'napari[all]'
 pip install scipy scikit-learn matplotlib #jupyter
 pip install aicsimageio 

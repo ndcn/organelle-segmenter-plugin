@@ -15,7 +15,7 @@ class BatchProcessingView(View):
     field_input_dir: FileInput
     field_output_dir: FileInput
 
-    def __init__(self, controller: IBatchProcessingController):
+    def __init__(self, controller: None):
         super().__init__(template_class=MainTemplate)
 
         if controller is None:

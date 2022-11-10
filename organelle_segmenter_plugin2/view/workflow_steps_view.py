@@ -1,7 +1,9 @@
 from typing import List
 import numpy as np
 
-from aicssegmentation.workflow import WorkflowStepCategory
+# from aicssegmentation.workflow import WorkflowStepCategory
+from infer_subc_2d.workflow import InferSubC2dWorkflowStepCategory as WorkflowStepCategory
+
 from qtpy.QtCore import Qt
 from qtpy.QtGui import QImage, QPixmap
 from qtpy.QtWidgets import (
@@ -25,11 +27,12 @@ from organelle_segmenter_plugin2.view._main_template import MainTemplate
 from organelle_segmenter_plugin2._style import PAGE_CONTENT_WIDTH
 
 
+# TODO: depricate diagrams... + info buttons.  DONE?
 class WorkflowStepsView(View):  # pragma: no-cover
-    window_workflow_diagram: QScrollArea
+    # window_workflow_diagram: QScrollArea
     modal_close_workflow: QMessageBox
     progress_bar: QProgressBar
-    btn_workflow_info: QPushButton
+    # btn_workflow_info: QPushButton
     btn_run_all: QPushButton
     btn_save_workflow: QPushButton
     btn_close_keep: QPushButton
@@ -51,18 +54,19 @@ class WorkflowStepsView(View):  # pragma: no-cover
         self._layout.setContentsMargins(0, 0, 0, 0)
         self._layout.setSpacing(0)
         self.setLayout(self._layout)
-
         # Add all widgets
         self._add_workflow_title()
         self._add_progress_bar()
         steps = 0
+        # steps = self._add_workflow_steps(WorkflowStepCategory.EXTRACTION, steps)
         steps = self._add_workflow_steps(WorkflowStepCategory.PRE_PROCESSING, steps)
         steps = self._add_workflow_steps(WorkflowStepCategory.CORE, steps)
         steps = self._add_workflow_steps(WorkflowStepCategory.POST_PROCESSING, steps)
+        # steps = self._add_workflow_steps(WorkflowStepCategory.POST_POST_PROCESSING, steps)
         self._layout.addSpacing(20)
         self._layout.addStretch()
         self._add_bottom_buttons()
-        self._setup_diagram_window()
+        # self._setup_diagram_window()
         self._setup_close_workflow_window()
 
     def _add_workflow_title(self):
@@ -72,14 +76,14 @@ class WorkflowStepsView(View):  # pragma: no-cover
 
         # Make widgets
         workflow_name = QLabel(f"Workflow: {self._workflow.workflow_definition.name}")
-        self.btn_workflow_info = QPushButton("ⓘ")
-        self.btn_workflow_info.setObjectName("infoButton")
-        self.btn_workflow_info.clicked.connect(self._btn_info_clicked)
+        # self.btn_workflow_info = QPushButton("ⓘ")
+        # self.btn_workflow_info.setObjectName("infoButton")
+        # self.btn_workflow_info.clicked.connect(self._btn_info_clicked)
 
         # Add widgets and whitespace
         layout.addStretch()
         layout.addWidget(workflow_name)
-        layout.addWidget(self.btn_workflow_info)
+        # layout.addWidget(self.btn_workflow_info)
         layout.addStretch()
         layout.setSpacing(3)
 
@@ -98,7 +102,6 @@ class WorkflowStepsView(View):  # pragma: no-cover
         self._layout.addWidget(self.progress_bar)
 
         # Tick marks
-
         progress_labels = QLabel()
         progress_labels.setFixedWidth(PAGE_CONTENT_WIDTH)
         progress_labels.setObjectName("progressLabels")
@@ -121,6 +124,7 @@ class WorkflowStepsView(View):  # pragma: no-cover
         self._layout.addWidget(category_label)
         # Add a widget for all the steps in this category
         i = steps
+
         for step in filter(lambda step: step.category == category, self._workflow.workflow_definition.steps):
             if i == 0:
                 self._layout.addWidget(WorkflowStepWidget(step, i, steps_view=self, enable_button=True))
@@ -153,28 +157,28 @@ class WorkflowStepsView(View):  # pragma: no-cover
 
         self._layout.addLayout(layout)
 
-    def _setup_diagram_window(self):
-        self.window_workflow_diagram = QScrollArea()
-        diagram = QLabel()
-        # TODO: remove this when dimension order refactor happens
-        color_channel_size: int = min(np.shape(self._workflow.workflow_definition.diagram_image))
-        min_index: int = np.shape(self._workflow.workflow_definition.diagram_image).index(color_channel_size)
+    # def _setup_diagram_window(self):
+    #     self.window_workflow_diagram = QScrollArea()
+    #     diagram = QLabel()
+    #     # TODO: remove this when dimension order refactor happens
+    #     color_channel_size: int = min(np.shape(self._workflow.workflow_definition.diagram_image))
+    #     min_index: int = np.shape(self._workflow.workflow_definition.diagram_image).index(color_channel_size)
 
-        img_data = np.moveaxis(self._workflow.workflow_definition.diagram_image, min_index, -1)
-        img = QImage(img_data, img_data.shape[1], img_data.shape[0], QImage.Format.Format_RGB888)
-        diagram.setPixmap(QPixmap(img).scaledToWidth(1000, Qt.TransformationMode.SmoothTransformation))
+    #     img_data = np.moveaxis(self._workflow.workflow_definition.diagram_image, min_index, -1)
+    #     img = QImage(img_data, img_data.shape[1], img_data.shape[0], QImage.Format.Format_RGB888)
+    #     diagram.setPixmap(QPixmap(img).scaledToWidth(1000, Qt.TransformationMode.SmoothTransformation))
 
-        self.window_workflow_diagram.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
-        self.window_workflow_diagram.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
-        self.window_workflow_diagram.setFixedWidth(1000)
-        self.window_workflow_diagram.setMinimumHeight(800)
-        self.window_workflow_diagram.setWidget(diagram)
+    #     self.window_workflow_diagram.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
+    #     self.window_workflow_diagram.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+    #     self.window_workflow_diagram.setFixedWidth(1000)
+    #     self.window_workflow_diagram.setMinimumHeight(800)
+    #     self.window_workflow_diagram.setWidget(diagram)
 
     def _setup_close_workflow_window(self):
         self.modal_close_workflow = QMessageBox()
 
         prompt = (
-            "<span>You are closing an in-progress Allen Cell & Structure Segmenter plugin workflow to return "
+            "<span>You are closing an in-progress Organelle Segmenter plugin workflow to return "
             "to the Workflow Selection screen.&nbsp;Your progress in this workflow will be lost.</span>"
         )
 
@@ -220,8 +224,8 @@ class WorkflowStepsView(View):  # pragma: no-cover
     # Event handlers
     #####################################################################
 
-    def _btn_info_clicked(self, checked: bool):
-        self.window_workflow_diagram.show()
+    # def _btn_info_clicked(self, checked: bool):
+    #     self.window_workflow_diagram.show()
 
     def _btn_close_clicked(self, checked: bool):
         self.modal_close_workflow.exec()

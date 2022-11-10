@@ -2,7 +2,9 @@ from dataclasses import dataclass
 from typing import List
 from napari.layers import Layer
 from .channel import Channel
-from aicssegmentation.workflow import Workflow
+
+# from aicssegmentation.workflow import Workflow
+from infer_subc_2d.workflow import InferSubC2dWorkflow
 
 
 @dataclass
@@ -16,7 +18,7 @@ class SegmenterModel:
     channels: List[str] = None
     selected_channel: Channel = None
     workflows: List[str] = None
-    active_workflow: Workflow = None
+    active_workflow: InferSubC2dWorkflow = None
 
     def reset(self):
         """

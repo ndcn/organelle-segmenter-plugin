@@ -58,8 +58,8 @@ class BatchCompleteDialog(QDialog):
         header = QLabel(
             """
             <span>
-                <b>ALLEN CELL & STRUCTURE SEGMENTER</b><br/>
-                v1.0 supports static 3D images only
+                <b>ORGANELLE STRUCTURE SEGMENTER</b><br/>
+                supports static 2D images only
             </span>
             """
         )

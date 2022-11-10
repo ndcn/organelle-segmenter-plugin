@@ -18,7 +18,8 @@ from organelle_segmenter_plugin2.core.view import View
 from organelle_segmenter_plugin2.widgets.form import Form
 from organelle_segmenter_plugin2.widgets.warning_message import WarningMessage
 from organelle_segmenter_plugin2.util.ui_utils import UiUtils
-from organelle_segmenter_plugin2.widgets.workflow_thumbnails import WorkflowThumbnails
+
+from organelle_segmenter_plugin2.widgets.workflow_dropdown import WorkflowDropDown
 from ._main_template import MainTemplate
 
 
@@ -26,9 +27,11 @@ class WorkflowSelectView(View):
 
     _combo_layers: QComboBox
     _combo_channels: QComboBox
-    _combo_workflows: QComboBox
     _load_image_warning: WarningMessage
-    _workflow_grid: WorkflowThumbnails
+    _workflow_grid: WorkflowDropDown
+    # _combo_workflows: QComboBox
+    # _workflows: List[WorkflowDefinition]
+    # _workflow_names: List[str]
 
     def __init__(self, controller: IWorkflowSelectController):
         super().__init__(template_class=MainTemplate)
@@ -45,6 +48,11 @@ class WorkflowSelectView(View):
         self.update_channels(model.channels, model.selected_channel)
         self._load_workflows(model.workflows)
 
+    #    # JAH: combo_box_workflows
+    #     # self._workflows = self._controller._workflow_engine._load_workflow_definitions()
+    #     # self.update_workflows(self._workflows)
+    #     self.update_workflows(model.workflows)
+
     def _setup_ui(self):
         layout = QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
@@ -59,13 +67,13 @@ class WorkflowSelectView(View):
         self._load_image_warning.setVisible(False)
 
         # Dropdowns
-        layers_dropdown = UiUtils.dropdown_row("1.", "Select a 3D Napari image layer", enabled=False)
+        layers_dropdown = UiUtils.dropdown_row("1.", "Select organelle's 3D Napari image layer", enabled=False)
         self._combo_layers = layers_dropdown.widget
         self._combo_layers.setStyleSheet("QComboBox { combobox-popup: 0; }")
         self._combo_layers.setMaxVisibleItems(20)
         self._combo_layers.activated.connect(self._combo_layers_activated)
 
-        channels_dropdown = UiUtils.dropdown_row("2.", "Select a 3D image data channel", enabled=False)
+        channels_dropdown = UiUtils.dropdown_row("2.", "Select a 3D image data channel (0)", enabled=False)
         self._combo_channels = channels_dropdown.widget
         self._combo_channels.setStyleSheet("QComboBox { combobox-popup: 0; }")
         self._combo_channels.setMaxVisibleItems(20)
@@ -74,24 +82,26 @@ class WorkflowSelectView(View):
         layer_channel_selections = QWidget()
         layer_channel_selections.setLayout(Form([layers_dropdown, channels_dropdown]))
 
-        # # JAH dropdown to replace WorkflowThumbnails widget
-        # workflows_dropdown = UiUtils.dropdown_row("2.", "Select a workflow", enabled=False)
+        # # JAH dropdown to replace WorkflowDD widget
+        # workflows_dropdown = UiUtils.dropdown_row("3.", "Select a workflow", enabled=False)
         # self._combo_workflows = workflows_dropdown.widget
         # self._combo_channels.setStyleSheet("QComboBox { combobox-popup: 0; }")
         # self._combo_workflows.setMaxVisibleItems(20)
         # self._combo_workflows.activated.connect(self._combo_workflows_activated)
+
+        # # JAH
+        # layer_channel_selections.setLayout(Form([layers_dropdown, channels_dropdown, workflows_dropdown]))
 
         # Add all widgets
         widgets = [
             workflow_selection_title,
             self._load_image_warning,
             layer_channel_selections,
-            # workflows_dropdown,
         ]
         for widget in widgets:
             layout.addWidget(widget)
 
-        self._workflow_grid = WorkflowThumbnails()
+        self._workflow_grid = WorkflowDropDown()
         self._workflow_grid.workflowSelected.connect(self._workflow_selected)
         self.layout().addWidget(self._workflow_grid)
 
@@ -147,44 +157,20 @@ class WorkflowSelectView(View):
 
             self._combo_channels.setEnabled(True)
 
-    def update_workflows(self, workflows: List[WorkflowDefinition], selected_workflow: WorkflowDefinition = None):
+    def update_workflows(self, enabled: bool):
         """
-        Update / repopulate the list of selectable workflows
+        Update state of workflow list
         Inputs:
-            workflows: List of workflows names
+            enabled: True to enable the list, False to disable it
         """
-        self._reset_combo_box(self._combo_channels)
-
-        if workflows is None or len(workflows) == 0:
-            self._combo_workflows.setEnabled(False)
-        else:
-            model = QStandardItemModel()
-            model.appendRow(QStandardItem(self._combo_workflows.itemText(0)))
-
-            for workflow in workflows:
-                item = QStandardItem(workflow.name)
-                item.setData(workflow, QtCore.Qt.UserRole)
-                model.appendRow(item)
-
-            self._combo_workflows.setModel(model)
-
-            if selected_workflow is not None:
-                self._combo_workflows.setCurrentText(selected_workflow.name)
-
-            self._combo_workflows.setEnabled(True)
-
-    # def update_workflows(self, enabled: bool):
-    #     """
-    #     Update state of workflow list
-    #     Inputs:
-    #         enabled: True to enable the list, False to disable it
-    #     """
-    #     self._workflow_grid.setEnabled(enabled)
+        self._workflow_grid.setEnabled(enabled)
 
     def _load_workflows(self, workflows: List[WorkflowDefinition]):
         """
         Load workflows into workflow grid
         """
+        # self._workflow = workflows
+        # self._workflow_names = [wf.name for wf in workflows]
         self._workflow_grid.load_workflows(workflows)
 
     def _reset_combo_box(self, combo: QComboBox):
@@ -211,13 +197,6 @@ class WorkflowSelectView(View):
             self._controller.unselect_channel()
         else:
             self._controller.select_channel(self._combo_channels.itemData(index, role=QtCore.Qt.UserRole))
-
-    # JAH:
-    def _combo_workflows_activated(self, index: int):
-        if index == 0:
-            self._controller.unselect_workflow()
-        else:
-            self._controller.select_workflow(self._combo_channels.itemData(index, role=QtCore.Qt.UserRole))
 
     def _workflow_selected(self, workflow_name: str):
         self._controller.select_workflow(workflow_name)
