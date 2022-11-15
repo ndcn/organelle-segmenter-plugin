@@ -2,7 +2,7 @@ from typing import List
 import numpy as np
 
 # from aicssegmentation.workflow import WorkflowStepCategory
-from infer_subc_2d.workflow import InferSubC2dWorkflowStepCategory as WorkflowStepCategory
+from infer_subc_2d.workflow import WorkflowStepCategory
 
 from qtpy.QtCore import Qt
 from qtpy.QtGui import QImage, QPixmap

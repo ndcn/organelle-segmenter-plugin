@@ -3,8 +3,7 @@ from typing import Any, Dict, List, Union
 from PyQt5.QtWidgets import QComboBox, QPushButton, QFrame, QHBoxLayout
 
 # from aicssegmentation.workflow import WorkflowStep, FunctionParameter, WidgetType
-from aicssegmentation.workflow import FunctionParameter, WidgetType
-from infer_subc_2d.workflow import InferSubC2dWorkflowStep as WorkflowStep
+from infer_subc_2d.workflow import WorkflowStep, FunctionParameter, WidgetType
 
 
 from magicgui.widgets import Slider
@@ -146,10 +145,13 @@ class WorkflowStepWidget(QWidget):
 
             # param_name will become the widget's objectName
             # param_label will be displayed in the UI
+            print(param.widget_type)
             if param.widget_type == WidgetType.SLIDER:
                 self._add_slider(param_name, param_label, param, default_value)
             elif param.widget_type == WidgetType.DROPDOWN:
                 self._add_dropdown(param_name, param_label, param, default_value)
+            else:
+                print("DOH!  this is wrong...")
 
     def _add_slider(
         self, param_name: str, param_label: str, param: FunctionParameter, default_value: Union[int, float]
@@ -177,6 +179,10 @@ class WorkflowStepWidget(QWidget):
         magicgui_slider.native.setStyleSheet("QWidget { background-color: transparent; }")
         magicgui_slider.native.setObjectName(param_name)
 
+        print(f"adding slider {param_name}, {param_label}")
+        print(
+            f"                  {param_name.upper()}:: min={param.min_value}, max={param.max_value}, delta={param.increment}, val={default_value} "
+        )
         self.form_rows.append(FormRow(param_label, magicgui_slider))
 
     def _add_dropdown(

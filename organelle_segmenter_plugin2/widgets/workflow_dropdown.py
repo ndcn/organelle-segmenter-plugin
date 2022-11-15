@@ -1,7 +1,7 @@
 from typing import List
 
 # from aicssegmentation.workflow import WorkflowDefinition
-from infer_subc_2d.workflow import InferSubC2dWorkflowDefinition as WorkflowDefinition
+from infer_subc_2d.workflow import WorkflowDefinition
 
 
 from qtpy.QtWidgets import (
@@ -51,8 +51,6 @@ class WorkflowDropDown(QWidget):
         """
         Load given Workflow definitions and rebuild the grid
         """
-        print("_LOAD_WORKFLOWS")
-
         if workflows is None:
             raise ValueError("workflows")
 
@@ -72,7 +70,6 @@ class WorkflowDropDown(QWidget):
         """
         Add widgets and set the layout for the Step 3 instructions and the workflow buttons
         """
-        print("_ADD_LABELS")
         self.step_3_label = QLabel("3.")
         self.step_3_label.setAlignment(QtCore.Qt.AlignTop)
         self.step_3_instructions = QLabel("Choose your worfklow .....")

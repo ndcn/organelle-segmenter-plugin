@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Dict, Generator, List, Tuple, Any
 from napari.qt.threading import create_worker, GeneratorWorker
 from aicssegmentation.workflow import WorkflowStep, WorkflowDefinition  # WorkflowEngine,
-from infer_subc_2d.workflow import InferSubC2dWorkflowEngine as WorkflowEngine
+from infer_subc_2d.workflow import WorkflowEngine
 
 
 from organelle_segmenter_plugin2.view.workflow_steps_view import WorkflowStepsView

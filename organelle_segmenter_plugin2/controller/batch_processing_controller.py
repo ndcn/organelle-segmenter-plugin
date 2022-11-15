@@ -5,7 +5,7 @@ from napari._qt.qthreading import GeneratorWorker
 from napari.qt.threading import create_worker
 from typing import Generator, Tuple
 from aicssegmentation.workflow import BatchWorkflow  # WorkflowEngine,
-from infer_subc_2d.workflow import InferSubC2dWorkflowEngine as WorkflowEngine
+from infer_subc_2d.workflow import WorkflowEngine
 from organelle_segmenter_plugin2.core._interfaces import IApplication
 from organelle_segmenter_plugin2.core.controller import Controller
 from organelle_segmenter_plugin2.view.batch_processing_view import BatchProcessingView
