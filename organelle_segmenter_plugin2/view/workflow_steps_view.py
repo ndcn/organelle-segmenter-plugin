@@ -58,11 +58,11 @@ class WorkflowStepsView(View):  # pragma: no-cover
         self._add_workflow_title()
         self._add_progress_bar()
         steps = 0
-        # steps = self._add_workflow_steps(WorkflowStepCategory.EXTRACTION, steps)
+        steps = self._add_workflow_steps(WorkflowStepCategory.EXTRACTION, steps)
         steps = self._add_workflow_steps(WorkflowStepCategory.PRE_PROCESSING, steps)
         steps = self._add_workflow_steps(WorkflowStepCategory.CORE, steps)
         steps = self._add_workflow_steps(WorkflowStepCategory.POST_PROCESSING, steps)
-        # steps = self._add_workflow_steps(WorkflowStepCategory.POST_POST_PROCESSING, steps)
+        steps = self._add_workflow_steps(WorkflowStepCategory.POST_POST_PROCESSING, steps)
         self._layout.addSpacing(20)
         self._layout.addStretch()
         self._add_bottom_buttons()

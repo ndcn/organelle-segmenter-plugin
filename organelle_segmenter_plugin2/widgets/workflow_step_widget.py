@@ -145,7 +145,6 @@ class WorkflowStepWidget(QWidget):
 
             # param_name will become the widget's objectName
             # param_label will be displayed in the UI
-            print(param.widget_type)
             if param.widget_type == WidgetType.SLIDER:
                 self._add_slider(param_name, param_label, param, default_value)
             elif param.widget_type == WidgetType.DROPDOWN:
@@ -179,10 +178,10 @@ class WorkflowStepWidget(QWidget):
         magicgui_slider.native.setStyleSheet("QWidget { background-color: transparent; }")
         magicgui_slider.native.setObjectName(param_name)
 
-        print(f"adding slider {param_name}, {param_label}")
-        print(
-            f"                  {param_name.upper()}:: min={param.min_value}, max={param.max_value}, delta={param.increment}, val={default_value} "
-        )
+        # print(f"adding slider {param_name}, {param_label}")
+        # print(
+        #     f"                  {param_name.upper()}:: min={param.min_value}, max={param.max_value}, delta={param.increment}, val={default_value} "
+        # )
         self.form_rows.append(FormRow(param_label, magicgui_slider))
 
     def _add_dropdown(

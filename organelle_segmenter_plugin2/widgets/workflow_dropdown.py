@@ -87,12 +87,12 @@ class WorkflowDropDown(QWidget):
         column_layout.setContentsMargins(11, 11, 11, 0)
         self.column_labels.setLayout(column_layout)
 
-        image_input_label = QLabel("left column")
+        image_input_label = QLabel("prebuilt workflows")
         image_input_label.setAlignment(QtCore.Qt.AlignCenter)
-        segmentation_output_label = QLabel("right column")
-        segmentation_output_label.setAlignment(QtCore.Qt.AlignCenter)
+        # segmentation_output_label = QLabel("right column")
+        # segmentation_output_label.setAlignment(QtCore.Qt.AlignCenter)
         self.column_labels.layout().addWidget(image_input_label)
-        self.column_labels.layout().addWidget(segmentation_output_label)
+        # self.column_labels.layout().addWidget(segmentation_output_label)
 
         self.column_labels.setFixedWidth(PAGE_CONTENT_WIDTH)
         self.column_labels.setObjectName("columnLabelsDisabled")
@@ -107,7 +107,7 @@ class WorkflowDropDown(QWidget):
         # layout.setSpacing(5)
         for workflow in workflows:
             button = QPushButton(workflow.name)
-            button.setFixedWidth(120)
+            # button.setFixedWidth(240)
             button.setToolTip(workflow.name)
             button.setEnabled(False)
             button.setObjectName(workflow.name)

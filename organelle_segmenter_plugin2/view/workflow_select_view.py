@@ -67,13 +67,13 @@ class WorkflowSelectView(View):
         self._load_image_warning.setVisible(False)
 
         # Dropdowns
-        layers_dropdown = UiUtils.dropdown_row("1.", "Select organelle's 3D Napari image layer", enabled=False)
+        layers_dropdown = UiUtils.dropdown_row("1.", "Select multichannel 3D Napari image layer", enabled=False)
         self._combo_layers = layers_dropdown.widget
         self._combo_layers.setStyleSheet("QComboBox { combobox-popup: 0; }")
         self._combo_layers.setMaxVisibleItems(20)
         self._combo_layers.activated.connect(self._combo_layers_activated)
 
-        channels_dropdown = UiUtils.dropdown_row("2.", "Select a 3D image data channel (0)", enabled=False)
+        channels_dropdown = UiUtils.dropdown_row("2.", "Select Z Slice (0)", enabled=False)
         self._combo_channels = channels_dropdown.widget
         self._combo_channels.setStyleSheet("QComboBox { combobox-popup: 0; }")
         self._combo_channels.setMaxVisibleItems(20)
@@ -126,6 +126,7 @@ class WorkflowSelectView(View):
             self._combo_layers.setEnabled(True)
             self._load_image_warning.setVisible(False)
 
+    # TODO: refactor channels -> zslices, Channel -> ZSlice
     def update_channels(self, channels: List[Channel], selected_channel: Channel = None):
         """
         Update / repopulate the list of selectable channels
@@ -133,7 +134,7 @@ class WorkflowSelectView(View):
             channels: List of channel names
         """
         self._reset_combo_box(self._combo_channels)
-
+        # JAH:  make a default "negative" channel to NOT choose one...
         if channels is None or len(channels) == 0:
             self._combo_channels.setEnabled(False)
         else:

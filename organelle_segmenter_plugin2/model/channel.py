@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-
+# TODO:  refactor Channel to ZSlice
 @dataclass
 class Channel:
     index: int

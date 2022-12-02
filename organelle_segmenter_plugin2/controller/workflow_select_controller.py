@@ -1,15 +1,16 @@
 from typing import List
-from napari.utils.events.event import Event
-from organelle_segmenter_plugin2.model.segmenter_model import SegmenterModel
-from organelle_segmenter_plugin2.view.workflow_select_view import WorkflowSelectView
-from organelle_segmenter_plugin2.core._interfaces import IApplication
-from organelle_segmenter_plugin2.controller._interfaces import IWorkflowSelectController
-from organelle_segmenter_plugin2.core.controller import Controller
-from organelle_segmenter_plugin2.model.channel import Channel
-from organelle_segmenter_plugin2.core.layer_reader import LayerReader
 
 # from aicssegmentation.workflow import WorkflowEngine
 from infer_subc_2d.workflow import WorkflowEngine
+from napari.utils.events.event import Event
+
+from organelle_segmenter_plugin2.controller._interfaces import IWorkflowSelectController
+from organelle_segmenter_plugin2.core._interfaces import IApplication
+from organelle_segmenter_plugin2.core.controller import Controller
+from organelle_segmenter_plugin2.core.layer_reader import LayerReader
+from organelle_segmenter_plugin2.model.channel import Channel
+from organelle_segmenter_plugin2.model.segmenter_model import SegmenterModel
+from organelle_segmenter_plugin2.view.workflow_select_view import WorkflowSelectView
 
 
 class WorkflowSelectController(Controller, IWorkflowSelectController):
@@ -67,40 +68,34 @@ class WorkflowSelectController(Controller, IWorkflowSelectController):
     def select_channel(self, channel: Channel):
         self.model.selected_channel = channel
         self._view.update_workflows(enabled=True)
-        # do somethign like select_layer above to populate the workflows
-
-        # # JAH: combo_box_workflwows..
-        # self.model.workflows = self._workflow_engine._workflow_config.get_available_workflows()
-        # #    self._workflow_engine._get_workflow_definition(workflow_name)
-        # #     self._workflow_engine._load_workflow_definitions()
-        # # self._view.update_workflows(self._workflow_engine._load_workflow_definitions(), None)
-        # # workflows = [
-        # #     self._workflow_engine._get_workflow_definition(workflow_name) for workflow_name in self.model.workflows
-        # # ]
-        # self._view.update_workflows(self.model.workflows, None)
 
     def unselect_channel(self):
         self.model.selected_channel = None
         self._view.update_workflows(enabled=False)
 
-        # # JAH: combo_box_workflows
-        # self.model.active_workflow = None
-        # # self.model.workflows = None # ???
-        # self._view.update_workflows(None)
-
     def select_workflow(self, workflow_name):
-        channel_data = self._layer_reader.get_channel_data(self.model.selected_channel.index, self.model.selected_layer)
+        # THis is where we need to access the data as "channel_data"
+        # TODO: refactor channel -> zslice
+
+        if self.model.selected_channel.index < 0:
+            # if channel.index < 1: it means we want everything...
+            channel_data = self._layer_reader.get_all_data(self.model.selected_layer)
+            # JAH: channels are really zslices
+            _layer_name = f"0: {self.model.selected_layer.name}: FULL {workflow_name}"
+        else:
+            # maybe
+            channel_data = self._layer_reader.get_channel_data(
+                self.model.selected_channel.index, self.model.selected_layer
+            )
+            _layer_name = (
+                f"0: {self.model.selected_layer.name}: Z[{str(self.model.selected_channel.index)}]{workflow_name}"
+            )
+        # channel_data = self.model.selected_layer.data
+        print(f"channel_data shape {channel_data.shape}")
+
         self.model.active_workflow = self._workflow_engine.get_executable_workflow(workflow_name, channel_data)
 
-        self.viewer.add_image_layer(
-            channel_data,
-            name="0: "
-            + self.model.selected_layer.name
-            + ": ch["
-            + str(self.model.selected_channel.index)
-            + "] "
-            + workflow_name,
-        )  # layer 0
+        self.viewer.add_image_layer(channel_data, name=_layer_name)  # layer 0
 
         self.router.workflow_steps()
 
