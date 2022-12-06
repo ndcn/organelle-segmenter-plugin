@@ -41,8 +41,8 @@ class BatchProcessingView(View):
         row1 = FormRow("1.  Load workflow:", self.field_workflow_config)
 
         # Channel index
-        self.field_channel = QLineEdit("0")
-        self.field_channel.setValidator(QIntValidator(bottom=0))
+        self.field_channel = QLineEdit("-1")
+        self.field_channel.setValidator(QIntValidator(bottom=-1))
         self.field_channel.textChanged.connect(self._form_field_changed)
         row2 = FormRow("2.  Structure channel index:", self.field_channel)
 
