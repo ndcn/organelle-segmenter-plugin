@@ -27,6 +27,7 @@ class BatchProcessingController(Controller, IBatchProcessingController):
         self._input_folder = None
         self._output_folder = None
         self._channel_index = None
+        self._z_index = None
         self._workflow_config = None
 
         self._run_lock = False  # lock to avoid triggering multiple runs at the same time
@@ -53,8 +54,11 @@ class BatchProcessingController(Controller, IBatchProcessingController):
             self._worker.quit()
 
     def update_batch_parameters(self, workflow_config: Path, channel_index: int, input_dir: Path, output_dir: Path):
+        # JAH: refactor channel -> z_slice
+        # def update_batch_parameters(self, workflow_config: Path, z_index: int, input_dir: Path, output_dir: Path):
         self._workflow_config = workflow_config
         self._channel_index = channel_index
+        # self._z_index = z_index
         self._input_folder = input_dir
         self._output_folder = output_dir
 
@@ -77,6 +81,9 @@ class BatchProcessingController(Controller, IBatchProcessingController):
             return False
         if self._channel_index is None:
             return False
+        # JAH: refactor channel -> z_slice
+        if self._z_index is None:
+            return False
 
         return True
 
@@ -84,6 +91,7 @@ class BatchProcessingController(Controller, IBatchProcessingController):
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
 
+            # JAH: refactor channel -> z_slice... what do i need to do for the workflow engine?
             batch_workflow = self._workflow_engine.get_executable_batch_workflow_from_config_file(
                 self._workflow_config, self._input_folder, self._output_folder, channel_index=self._channel_index
             )

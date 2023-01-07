@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Dict, List
 
 from aicssegmentation.workflow.workflow_step import WorkflowStep
-from organelle_segmenter_plugin2.model.channel import Channel
+from organelle_segmenter_plugin2.model.channel import Channel, ZSlice
 
 
 class IWorkflowSelectController(ABC):
@@ -28,7 +28,7 @@ class IWorkflowSelectController(ABC):
         """
         Handle user selection of channel
         Inputs
-            channel: the channel to select
+            Channel: the channel to select
         """
         pass
 
@@ -38,6 +38,23 @@ class IWorkflowSelectController(ABC):
         Handle user resetting channel selection
         """
         pass
+
+    # JAH: refactor channel -> z_slice
+    # @abstractmethod
+    # def select_zslice(self, zslice: ZSlice):
+    #     """
+    #     Handle user selection of zslice
+    #     Inputs
+    #         ZSlice: the zslice to select
+    #     """
+    #     pass
+
+    # @abstractmethod
+    # def unselect_zslice(self):
+    #     """
+    #     Handle user resetting zslice selection
+    #     """
+    #     pass
 
     @abstractmethod
     def select_workflow(self, workflow: str):
@@ -112,6 +129,7 @@ class IBatchProcessingController(ABC):
         """
         pass
 
+    # JAH: refactor channel -> z_slice.  TODO: add z_slice
     @abstractmethod
     def update_batch_parameters(self, workflow_config: Path, channel_index: int, input_dir: Path, output_dir: Path):
         """
