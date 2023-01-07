@@ -6,6 +6,7 @@ import napari
 from organelle_segmenter_plugin2.core.application import Application
 from qtpy.QtWidgets import QWidget, QVBoxLayout, QSizePolicy
 
+from typing import Union
 
 
 """

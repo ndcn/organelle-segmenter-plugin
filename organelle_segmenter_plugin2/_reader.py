@@ -56,13 +56,27 @@ from infer_subc_2d.utils.file_io import reader_function
 # IN_MEM_THRESHOLD_SIZE_BYTES = 4e9  # 4GB
 # ###############################################################################
 
+# from napari_plugin_engine import napari_hook_implementation
 
-# # @napari_hook_implementation
-# def napari_get_reader(path: PathOrPaths) -> Optional[ReaderFunction]:
-#     """
-#     hook implimentation calls the NPE2 style one :  FOR TESTING
-#     """
-#     return get_reader(path)
+
+# @napari_hook_implementation
+# def napari_get_reader_old(path: PathOrPaths):
+#     # If we recognize the format, we return the actual reader function
+#     # Only support single path
+#     if isinstance(path, list):
+#         # logger.info("ORGANELLE-SEGMENTER: Multi-file reading not yet supported.")
+#         print("ORGANELLE-SEGMENTER: Multi-file reading not yet supported.")
+#         return None
+
+#     if isinstance(path, str) and path.endswith(SUPPORTED_FILENAME_PATTERNS):
+#         if path.endswith(".xyz"):
+#             print("BAGGGING OUT>>>>>>")
+#             return None
+#         else:
+#             return xyz_file_reader
+
+#     # otherwise we return None.
+#     return None
 
 
 # NPE2 style

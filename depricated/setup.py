@@ -80,10 +80,10 @@ use_scm = {"write_to": "organelle_segmenter_plugin2/_version.py"}
 
 setup(
     name="organelle-segmenter-npe2",
-    author="Allen Institute for Cell Science",
+    author="Andy Henrie for CZI",
     license="BSD-3",
     url="https://github.com/ergonyc/organelle-segmenter-npe2",
-    description="A plugin that enables 2D image segmentation derived from tools from Allen Institute for Cell Science",
+    description="A plugin that enables 2D image segmentation derived from a fork of Allen Institute for Cell Science",
     long_description=read("README.md"),
     long_description_content_type="text/markdown",
     packages=find_packages(),
@@ -119,5 +119,5 @@ setup(
     # Do not edit this string manually, always use bumpversion
     # Details in CONTRIBUTING.rst
     version="0.0.1",
-    zip_safe=False,
+    zip_safe=True,
 )
