@@ -20,8 +20,10 @@ A [napari](https://napari.org/stable/) plugin to infer subcellular components le
 ## GOAL
 To measure shape, position, size, and interaction of eight organelles/cellular components (Nuclei (NU), Lysosomes (LS),Mitochondria (MT), Golgi (GL), Peroxisomes (PO), Endoplasmic Reticulum (ER), Lipid Droplet (LD), and SOMA) during differentiation of iPSCs, in order to understand the Interactome / Spatiotemporal coordination.
 
- 🚧 WIP 🚧
-The Allen Cell & Structure Segmenter plugin for napari provides an intuitive graphical user interface to access the powerful segmentation capabilities of an open source 3D segmentation software package developed and maintained by the Allen Institute for Cell Science (classic workflows only with v1.0). ​[The Allen Cell & Structure Segmenter](https://allencell.org/segmenter) is a Python-based open source toolkit developed at the Allen Institute for Cell Science for 3D segmentation of intracellular structures in fluorescence microscope images. This toolkit brings together classic image segmentation and iterative deep learning workflows first to generate initial high-quality 3D intracellular structure segmentations and then to easily curate these results to generate the ground truths for building robust and accurate deep learning models. The toolkit takes advantage of the high replicate 3D live cell image data collected at the Allen Institute for Cell Science of over 30 endogenous fluorescently tagged human induced pluripotent stem cell (hiPSC) lines. Each cell line represents a different intracellular structure with one or more distinct localization patterns within undifferentiated hiPS cells and hiPSC-derived cardiomyocytes.
+🚧 WIP 🚧
+ 
+### Forked from Allen Institute for Cell Science project
+The Allen Cell & Structure Segmenter plugin for napari, from which this projects is forked, provides an intuitive graphical user interface to access the powerful segmentation capabilities of an open source 3D segmentation software package developed and maintained by the Allen Institute for Cell Science (classic workflows only with v1.0). ​[The Allen Cell & Structure Segmenter](https://allencell.org/segmenter) is a Python-based open source toolkit developed at the Allen Institute for Cell Science for 3D segmentation of intracellular structures in fluorescence microscope images. This toolkit brings together classic image segmentation and iterative deep learning workflows first to generate initial high-quality 3D intracellular structure segmentations and then to easily curate these results to generate the ground truths for building robust and accurate deep learning models. The toolkit takes advantage of the high replicate 3D live cell image data collected at the Allen Institute for Cell Science of over 30 endogenous fluorescently tagged human induced pluripotent stem cell (hiPSC) lines. Each cell line represents a different intracellular structure with one or more distinct localization patterns within undifferentiated hiPS cells and hiPSC-derived cardiomyocytes.
 
 More details about Segmenter can be found at https://allencell.org/segmenter
 
@@ -39,21 +41,28 @@ https://napari.org/docs/plugins/index.html
 
 ## Installation 🚧 WIP 🚧
 
-### Option 1 (recommended): 🚧 WIP 🚧
+### Option 2 (recommended): 
+
+Clone the repo and install as editable module via pip.  via [pip]:
+
+    pip install -e <path_to_cloned_repo>
+
+
+### Option 2 🚧 COMING SOON 🚧 (not yet available on pypy)
 
 After you installed the lastest version of napari, you can go to "Plugins" --> "Install/Uninstall Package(s)". Then, you will be able to see all available napari plugins and you can find us by name `napari-allencell-segmenter`. Just click the "install" button to install the Segmenter plugin.
 
-### Option 2: 🚧 WIP 🚧
+### Option 3: 🚧 COMING SOON 🚧 (not yet available on pypy)
 
 You can also install `organelle-segmenter-plugin` via [pip]:
 
     pip install organelle-segmenter-plugin
-
+    
 ## Quick Start
 
 In the current version, there are two parts in the plugin: **workflow editor** and **batch processing**. The **workflow editor** allows users adjusting parameters in all the existing workflows in the lookup table, so that the workflow can be optimized on users' data. The adjusted workflow can be saved and then applied to a large batch of files using the **batch processing** part of the plugin. 
 
-1. Open a file in napari (the plugin is able to support multi-dimensional data in .tiff, .tif. ome.tif, .ome.tiff, .czi)
+1. Open a file in napari by dragging multi-channel .czi file onto napari which will import a multi-channel, multi-Z 'layer'. (Using the menu's defaults to `aicsIMAGEIO` reader which automatically splits mutliple channels into individual layers.  The plugin is able to support multi-dimensional data in .tiff, .tif. ome.tif, .ome.tiff, .czi)
 2. Start the plugin (open napari, go to "Plugins" --> "napari-allencell-segmenter" --> "workflow editor")
 3. Select the image and channel to work on
 4. Select a workflow based on the example image and target segmentation based on user's data. Ideally, it is recommend to start with the example with very similar morphology as user's data.
