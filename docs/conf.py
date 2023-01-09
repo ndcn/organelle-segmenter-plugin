@@ -48,7 +48,7 @@ source_suffix = ".rst"
 master_doc = "index"
 
 # General information about the project.
-project = "organelle-segmenter-npe2"
+project = "organelle-segmenter-plugin"
 copyright = "2022, Andy Henrie"
 author = "Andy Henrie"
 
