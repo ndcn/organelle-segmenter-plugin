@@ -76,13 +76,13 @@ extra_requirements = {
 }
 
 # https://github.com/pypa/setuptools_scm
-use_scm = {"write_to": "organelle_segmenter_plugin2/_version.py"}
+use_scm = {"write_to": "organelle_segmenter_plugin/_version.py"}
 
 setup(
-    name="organelle-segmenter-npe2",
+    name="organelle-segmenter-plugin",
     author="Andy Henrie for CZI",
     license="BSD-3",
-    url="https://github.com/ergonyc/organelle-segmenter-npe2",
+    url="https://github.com/ndcn/organelle-segmenter-plugin",
     description="A plugin that enables 2D image segmentation derived from a fork of Allen Institute for Cell Science",
     long_description=read("README.md"),
     long_description_content_type="text/markdown",
@@ -91,7 +91,7 @@ setup(
     install_requires=requirements,
     use_scm_version=use_scm,
     setup_requires=setup_requirements,
-    test_suite="organelle_segmenter_plugin2/_tests",
+    test_suite="organelle_segmenter_plugin/_tests",
     tests_require=test_requirements,
     extras_require=extra_requirements,
     include_package_data=True,
@@ -113,7 +113,7 @@ setup(
     ],
     entry_points={
         "napari.plugin": [
-            "organelle-segmenter-npe2 = organelle_segmenter_plugin2",
+            "organelle-segmenter-plugin = organelle_segmenter_plugin",
         ],
     },
     # Do not edit this string manually, always use bumpversion
