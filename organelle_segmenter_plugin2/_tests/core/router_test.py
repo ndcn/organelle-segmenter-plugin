@@ -2,7 +2,7 @@ import pytest
 
 from unittest import mock
 from unittest.mock import MagicMock, create_autospec
-from organelle_segmenter_plugin2.core.router import Router, IApplication, Controller
+from organelle_segmenter_plugin.core.router import Router, IApplication, Controller
 
 
 class TestRouter:

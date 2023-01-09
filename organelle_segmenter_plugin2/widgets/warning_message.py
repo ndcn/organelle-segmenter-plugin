@@ -1,6 +1,6 @@
 from qtpy.QtWidgets import QWidget, QHBoxLayout, QLabel
 from qtpy.QtGui import QPixmap
-from organelle_segmenter_plugin2.util.directories import Directories
+from organelle_segmenter_plugin.util.directories import Directories
 
 
 class WarningMessage(QWidget):

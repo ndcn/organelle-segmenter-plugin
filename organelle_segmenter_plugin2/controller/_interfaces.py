@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Dict, List
 
 from aicssegmentation.workflow.workflow_step import WorkflowStep
-from organelle_segmenter_plugin2.model.channel import Channel, ZSlice
+from organelle_segmenter_plugin.model.channel import Channel, ZSlice
 
 
 class IWorkflowSelectController(ABC):

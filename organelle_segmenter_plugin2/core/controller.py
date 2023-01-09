@@ -1,10 +1,10 @@
 from typing import Any
 from abc import ABC, abstractmethod
-from organelle_segmenter_plugin2.core.state import State
-from organelle_segmenter_plugin2.core.view import View
+from organelle_segmenter_plugin.core.state import State
+from organelle_segmenter_plugin.core.view import View
 from qtpy.QtWidgets import QMessageBox
-from organelle_segmenter_plugin2.core._interfaces import IApplication, IRouter
-from organelle_segmenter_plugin2.core.viewer_abstraction import ViewerAbstraction
+from organelle_segmenter_plugin.core._interfaces import IApplication, IRouter
+from organelle_segmenter_plugin.core.viewer_abstraction import ViewerAbstraction
 
 
 class Controller(ABC):

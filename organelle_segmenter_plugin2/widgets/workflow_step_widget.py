@@ -9,10 +9,10 @@ from infer_subc_2d.workflow import WorkflowStep, FunctionParameter, WidgetType
 from magicgui.widgets import Slider
 from qtpy.QtCore import Qt
 from qtpy.QtWidgets import QLabel, QVBoxLayout, QWidget
-from organelle_segmenter_plugin2.widgets.collapsible_box import CollapsibleBox
-from organelle_segmenter_plugin2.widgets.form import Form, FormRow
-from organelle_segmenter_plugin2.util.ui_utils import UiUtils
-from organelle_segmenter_plugin2.util.convert import Convert
+from organelle_segmenter_plugin.widgets.collapsible_box import CollapsibleBox
+from organelle_segmenter_plugin.widgets.form import Form, FormRow
+from organelle_segmenter_plugin.util.ui_utils import UiUtils
+from organelle_segmenter_plugin.util.convert import Convert
 from .float_slider import FloatSlider
 
 

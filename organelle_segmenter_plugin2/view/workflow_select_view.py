@@ -11,15 +11,15 @@ from qtpy.QtWidgets import (
 from qtpy.QtGui import QStandardItem, QStandardItemModel
 from qtpy import QtCore
 
-from organelle_segmenter_plugin2.model.channel import Channel
-from organelle_segmenter_plugin2.model.segmenter_model import SegmenterModel
-from organelle_segmenter_plugin2.controller._interfaces import IWorkflowSelectController
-from organelle_segmenter_plugin2.core.view import View
-from organelle_segmenter_plugin2.widgets.form import Form
-from organelle_segmenter_plugin2.widgets.warning_message import WarningMessage
-from organelle_segmenter_plugin2.util.ui_utils import UiUtils
+from organelle_segmenter_plugin.model.channel import Channel
+from organelle_segmenter_plugin.model.segmenter_model import SegmenterModel
+from organelle_segmenter_plugin.controller._interfaces import IWorkflowSelectController
+from organelle_segmenter_plugin.core.view import View
+from organelle_segmenter_plugin.widgets.form import Form
+from organelle_segmenter_plugin.widgets.warning_message import WarningMessage
+from organelle_segmenter_plugin.util.ui_utils import UiUtils
 
-from organelle_segmenter_plugin2.widgets.workflow_dropdown import WorkflowDropDown
+from organelle_segmenter_plugin.widgets.workflow_dropdown import WorkflowDropDown
 from ._main_template import MainTemplate
 
 

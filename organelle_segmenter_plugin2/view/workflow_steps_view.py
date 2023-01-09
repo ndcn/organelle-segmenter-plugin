@@ -19,12 +19,12 @@ from qtpy.QtWidgets import (
     QWidget,
 )
 
-from organelle_segmenter_plugin2.model.segmenter_model import SegmenterModel
-from organelle_segmenter_plugin2.controller._interfaces import IWorkflowStepsController
-from organelle_segmenter_plugin2.core.view import View
-from organelle_segmenter_plugin2.widgets.workflow_step_widget import WorkflowStepWidget
-from organelle_segmenter_plugin2.view._main_template import MainTemplate
-from organelle_segmenter_plugin2._style import PAGE_CONTENT_WIDTH
+from organelle_segmenter_plugin.model.segmenter_model import SegmenterModel
+from organelle_segmenter_plugin.controller._interfaces import IWorkflowStepsController
+from organelle_segmenter_plugin.core.view import View
+from organelle_segmenter_plugin.widgets.workflow_step_widget import WorkflowStepWidget
+from organelle_segmenter_plugin.view._main_template import MainTemplate
+from organelle_segmenter_plugin._style import PAGE_CONTENT_WIDTH
 
 
 # TODO: depricate diagrams... + info buttons.  DONE?

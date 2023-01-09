@@ -1,6 +1,6 @@
 import pytest
 
-from organelle_segmenter_plugin2.util.convert import Convert
+from organelle_segmenter_plugin.util.convert import Convert
 
 
 class TestConvert:

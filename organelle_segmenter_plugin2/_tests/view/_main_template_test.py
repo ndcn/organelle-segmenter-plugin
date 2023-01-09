@@ -1,4 +1,4 @@
-from organelle_segmenter_plugin2.view._main_template import MainTemplate
+from organelle_segmenter_plugin.view._main_template import MainTemplate
 from qtpy.QtWidgets import QFrame
 
 

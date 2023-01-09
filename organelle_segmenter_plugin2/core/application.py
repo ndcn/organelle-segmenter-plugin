@@ -1,7 +1,7 @@
 import napari
 
 from qtpy.QtWidgets import QLayout
-from organelle_segmenter_plugin2.core.state import State
+from organelle_segmenter_plugin.core.state import State
 from .router import Router
 from .view_manager import ViewManager
 from ._interfaces import IApplication

@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod, abstractproperty
-from organelle_segmenter_plugin2.core.view_manager import ViewManager
-from organelle_segmenter_plugin2.core.state import State
+from organelle_segmenter_plugin.core.view_manager import ViewManager
+from organelle_segmenter_plugin.core.state import State
 from .viewer_abstraction import ViewerAbstraction
 
 

@@ -1,7 +1,7 @@
 import pytest
 
-from organelle_segmenter_plugin2.model.channel import Channel
-from organelle_segmenter_plugin2.model.segmenter_model import SegmenterModel
+from organelle_segmenter_plugin.model.channel import Channel
+from organelle_segmenter_plugin.model.segmenter_model import SegmenterModel
 
 
 class TestSegmenterModel:

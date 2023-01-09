@@ -4,13 +4,13 @@ from typing import List
 from infer_subc_2d.workflow import WorkflowEngine
 from napari.utils.events.event import Event
 
-from organelle_segmenter_plugin2.controller._interfaces import IWorkflowSelectController
-from organelle_segmenter_plugin2.core._interfaces import IApplication
-from organelle_segmenter_plugin2.core.controller import Controller
-from organelle_segmenter_plugin2.core.layer_reader import LayerReader
-from organelle_segmenter_plugin2.model.channel import Channel
-from organelle_segmenter_plugin2.model.segmenter_model import SegmenterModel
-from organelle_segmenter_plugin2.view.workflow_select_view import WorkflowSelectView
+from organelle_segmenter_plugin.controller._interfaces import IWorkflowSelectController
+from organelle_segmenter_plugin.core._interfaces import IApplication
+from organelle_segmenter_plugin.core.controller import Controller
+from organelle_segmenter_plugin.core.layer_reader import LayerReader
+from organelle_segmenter_plugin.model.channel import Channel
+from organelle_segmenter_plugin.model.segmenter_model import SegmenterModel
+from organelle_segmenter_plugin.view.workflow_select_view import WorkflowSelectView
 
 
 class WorkflowSelectController(Controller, IWorkflowSelectController):

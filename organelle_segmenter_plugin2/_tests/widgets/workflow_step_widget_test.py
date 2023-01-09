@@ -10,7 +10,7 @@ from aicssegmentation.workflow import (
     WorkflowStepCategory,
 )
 from PyQt5.QtWidgets import QComboBox, QPushButton
-from organelle_segmenter_plugin2.widgets.workflow_step_widget import WorkflowStepWidget
+from organelle_segmenter_plugin.widgets.workflow_step_widget import WorkflowStepWidget
 from unittest.mock import MagicMock, create_autospec
 
 

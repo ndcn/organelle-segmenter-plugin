@@ -8,12 +8,12 @@ from aicssegmentation.workflow import WorkflowStep, WorkflowDefinition  # Workfl
 from infer_subc_2d.workflow import WorkflowEngine
 
 
-from organelle_segmenter_plugin2.view.workflow_steps_view import WorkflowStepsView
-from organelle_segmenter_plugin2.core._interfaces import IApplication
-from organelle_segmenter_plugin2.controller._interfaces import IWorkflowStepsController
-from organelle_segmenter_plugin2.core.controller import Controller
-from organelle_segmenter_plugin2.model.segmenter_model import SegmenterModel
-from organelle_segmenter_plugin2.widgets.param_sweep_widget import ParamSweepWidget
+from organelle_segmenter_plugin.view.workflow_steps_view import WorkflowStepsView
+from organelle_segmenter_plugin.core._interfaces import IApplication
+from organelle_segmenter_plugin.controller._interfaces import IWorkflowStepsController
+from organelle_segmenter_plugin.core.controller import Controller
+from organelle_segmenter_plugin.model.segmenter_model import SegmenterModel
+from organelle_segmenter_plugin.widgets.param_sweep_widget import ParamSweepWidget
 import numpy as np
 from qtpy.QtWidgets import QMessageBox
 from napari.qt import get_stylesheet

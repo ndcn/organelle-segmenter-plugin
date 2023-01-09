@@ -3,7 +3,7 @@ from qtpy.QtWidgets import QPushButton
 import pytest
 
 from aicssegmentation.workflow import WorkflowEngine
-from organelle_segmenter_plugin2.widgets.workflow_dropdown import WorkflowDD
+from organelle_segmenter_plugin.widgets.workflow_dropdown import WorkflowDD
 
 
 class TestWorkflowDD:

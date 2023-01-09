@@ -2,10 +2,10 @@ import pytest
 from unittest import mock
 from unittest.mock import MagicMock, create_autospec, PropertyMock, patch
 from pathlib import Path
-from organelle_segmenter_plugin2.controller.batch_processing_controller import BatchProcessingController
-from organelle_segmenter_plugin2.core._interfaces import IApplication, IRouter
-from organelle_segmenter_plugin2.core.state import State
-from organelle_segmenter_plugin2.core.view_manager import ViewManager
+from organelle_segmenter_plugin.controller.batch_processing_controller import BatchProcessingController
+from organelle_segmenter_plugin.core._interfaces import IApplication, IRouter
+from organelle_segmenter_plugin.core.state import State
+from organelle_segmenter_plugin.core.view_manager import ViewManager
 from aicssegmentation.workflow import WorkflowEngine, WorkflowStep
 
 

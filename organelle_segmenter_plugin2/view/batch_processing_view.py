@@ -1,9 +1,9 @@
 from qtpy.QtWidgets import QProgressBar, QVBoxLayout, QWidget, QLineEdit, QPushButton, QLabel
 from qtpy.QtGui import QIntValidator
-from organelle_segmenter_plugin2.core.view import View
-from organelle_segmenter_plugin2.controller._interfaces import IBatchProcessingController
-from organelle_segmenter_plugin2.widgets.form import Form, FormRow
-from organelle_segmenter_plugin2.widgets.file_input import FileInput, FileInputMode
+from organelle_segmenter_plugin.core.view import View
+from organelle_segmenter_plugin.controller._interfaces import IBatchProcessingController
+from organelle_segmenter_plugin.widgets.form import Form, FormRow
+from organelle_segmenter_plugin.widgets.file_input import FileInput, FileInputMode
 from ._main_template import MainTemplate
 
 

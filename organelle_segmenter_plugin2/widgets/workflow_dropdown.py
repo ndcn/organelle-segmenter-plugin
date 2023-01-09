@@ -16,12 +16,12 @@ from qtpy.QtGui import QIcon, QPixmap, QImage
 from qtpy import QtCore
 from qtpy.QtCore import Signal
 
-from organelle_segmenter_plugin2.widgets.form import Form, FormRow
-from organelle_segmenter_plugin2._style import PAGE_CONTENT_WIDTH, Style
+from organelle_segmenter_plugin.widgets.form import Form, FormRow
+from organelle_segmenter_plugin._style import PAGE_CONTENT_WIDTH, Style
 
 # # JAH
 # from qtpy.QtGui import QStandardItem, QStandardItemModel
-# from organelle_segmenter_plugin2.util.ui_utils import UiUtils
+# from organelle_segmenter_plugin.util.ui_utils import UiUtils
 
 
 class WorkflowDropDown(QWidget):

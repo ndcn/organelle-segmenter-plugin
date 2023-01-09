@@ -1,11 +1,11 @@
 # from aicssegmentation.workflow import WorkflowEngine
 from infer_subc_2d.workflow import WorkflowEngine
 
-from organelle_segmenter_plugin2.controller.workflow_select_controller import WorkflowSelectController
-from organelle_segmenter_plugin2.controller.workflow_steps_controller import WorkflowStepsController
-from organelle_segmenter_plugin2.controller.batch_processing_controller import BatchProcessingController
-from organelle_segmenter_plugin2.core.layer_reader import LayerReader
-from organelle_segmenter_plugin2.core.controller import Controller
+from organelle_segmenter_plugin.controller.workflow_select_controller import WorkflowSelectController
+from organelle_segmenter_plugin.controller.workflow_steps_controller import WorkflowStepsController
+from organelle_segmenter_plugin.controller.batch_processing_controller import BatchProcessingController
+from organelle_segmenter_plugin.core.layer_reader import LayerReader
+from organelle_segmenter_plugin.core.controller import Controller
 from ._interfaces import IApplication, IRouter
 
 

@@ -1,7 +1,7 @@
 import pytest
 
 from qtpy.QtWidgets import QFrame
-from organelle_segmenter_plugin2.core.view import View, ViewTemplate
+from organelle_segmenter_plugin.core.view import View, ViewTemplate
 
 
 class FakeTemplate(ViewTemplate):

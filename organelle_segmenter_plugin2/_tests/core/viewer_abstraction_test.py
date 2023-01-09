@@ -2,7 +2,7 @@ import pytest
 import napari
 
 from unittest.mock import MagicMock, create_autospec, PropertyMock
-from organelle_segmenter_plugin2.core.viewer_abstraction import ViewerAbstraction, Layer, LayerList
+from organelle_segmenter_plugin.core.viewer_abstraction import ViewerAbstraction, Layer, LayerList
 
 
 class TestViewerAbstraction:

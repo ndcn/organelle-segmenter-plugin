@@ -2,7 +2,7 @@ import pytest
 
 from unittest import mock
 from unittest.mock import MagicMock, create_autospec
-from organelle_segmenter_plugin2.core.state import State, SegmenterModel
+from organelle_segmenter_plugin.core.state import State, SegmenterModel
 
 
 class TestRouter:

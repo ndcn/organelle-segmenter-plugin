@@ -1,6 +1,6 @@
 import pytest
 
-from organelle_segmenter_plugin2._style import Style
+from organelle_segmenter_plugin._style import Style
 
 
 class TestStyle:

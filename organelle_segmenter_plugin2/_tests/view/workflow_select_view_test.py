@@ -3,7 +3,7 @@ import numpy as np
 
 from qtpy import QtCore
 from unittest.mock import MagicMock, PropertyMock, create_autospec
-from organelle_segmenter_plugin2.view.workflow_select_view import (
+from organelle_segmenter_plugin.view.workflow_select_view import (
     WorkflowSelectView,
     IWorkflowSelectController,
     SegmenterModel,

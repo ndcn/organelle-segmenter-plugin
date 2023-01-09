@@ -1,5 +1,5 @@
-from organelle_segmenter_plugin2.util.lazy import lazy_property
-from organelle_segmenter_plugin2.model.segmenter_model import SegmenterModel
+from organelle_segmenter_plugin.util.lazy import lazy_property
+from organelle_segmenter_plugin.model.segmenter_model import SegmenterModel
 
 
 class State:

@@ -1,7 +1,7 @@
 from qtpy.QtGui import QPixmap, QIcon
 from qtpy.QtWidgets import QFrame, QHBoxLayout, QLabel, QVBoxLayout, QWidget, QPushButton
 
-from organelle_segmenter_plugin2.util.directories import Directories
+from organelle_segmenter_plugin.util.directories import Directories
 
 
 class CollapsibleBox(QWidget):

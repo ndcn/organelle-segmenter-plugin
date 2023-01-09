@@ -1,8 +1,8 @@
 import pytest
 from qtpy.QtWidgets import QLabel, QPushButton, QVBoxLayout
 
-from organelle_segmenter_plugin2.widgets.collapsible_box import CollapsibleBox
-from organelle_segmenter_plugin2.widgets.workflow_step_widget import WorkflowStepWidget
+from organelle_segmenter_plugin.widgets.collapsible_box import CollapsibleBox
+from organelle_segmenter_plugin.widgets.workflow_step_widget import WorkflowStepWidget
 from aicssegmentation.workflow import WorkflowStep, SegmenterFunction
 from unittest.mock import MagicMock, create_autospec
 

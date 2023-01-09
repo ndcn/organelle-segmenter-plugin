@@ -5,8 +5,8 @@ from aicsimageio import AICSImage
 from unittest import mock
 from unittest.mock import Mock, create_autospec
 from napari.layers._source import Source
-from organelle_segmenter_plugin2.core.layer_reader import LayerReader, Channel
-from organelle_segmenter_plugin2._tests.mocks import MockLayer
+from organelle_segmenter_plugin.core.layer_reader import LayerReader, Channel
+from organelle_segmenter_plugin._tests.mocks import MockLayer
 
 
 class TestLayerReader:

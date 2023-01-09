@@ -1,7 +1,7 @@
 import pytest
 import napari
 from unittest.mock import MagicMock, create_autospec
-from organelle_segmenter_plugin2.core.application import Application, ViewManager, Router, State, ViewerAbstraction
+from organelle_segmenter_plugin.core.application import Application, ViewManager, Router, State, ViewerAbstraction
 from qtpy.QtWidgets import QLayout
 
 

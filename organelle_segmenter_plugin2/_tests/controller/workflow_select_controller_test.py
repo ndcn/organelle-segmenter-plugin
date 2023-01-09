@@ -5,14 +5,14 @@ from unittest import mock
 from unittest.mock import MagicMock, create_autospec, PropertyMock
 from aicssegmentation.workflow.workflow import Workflow
 from aicssegmentation.workflow import WorkflowEngine, WorkflowDefinition
-from organelle_segmenter_plugin2.controller.workflow_select_controller import WorkflowSelectController
-from organelle_segmenter_plugin2.core._interfaces import IApplication, IRouter
-from organelle_segmenter_plugin2.core.layer_reader import LayerReader
-from organelle_segmenter_plugin2.core.state import State
-from organelle_segmenter_plugin2.core.view_manager import ViewManager
-from organelle_segmenter_plugin2.model.segmenter_model import SegmenterModel
-from organelle_segmenter_plugin2.model.channel import Channel
-from organelle_segmenter_plugin2.core.viewer_abstraction import ViewerAbstraction
+from organelle_segmenter_plugin.controller.workflow_select_controller import WorkflowSelectController
+from organelle_segmenter_plugin.core._interfaces import IApplication, IRouter
+from organelle_segmenter_plugin.core.layer_reader import LayerReader
+from organelle_segmenter_plugin.core.state import State
+from organelle_segmenter_plugin.core.view_manager import ViewManager
+from organelle_segmenter_plugin.model.segmenter_model import SegmenterModel
+from organelle_segmenter_plugin.model.channel import Channel
+from organelle_segmenter_plugin.core.viewer_abstraction import ViewerAbstraction
 from ..mocks import MockLayer
 
 

@@ -1,4 +1,4 @@
-from organelle_segmenter_plugin2.widgets.file_input import FileInput, FileInputMode
+from organelle_segmenter_plugin.widgets.file_input import FileInput, FileInputMode
 
 
 class TestFileInput:

@@ -2,7 +2,7 @@ import numpy as np
 
 from unittest import mock
 from unittest.mock import MagicMock, Mock, create_autospec
-from organelle_segmenter_plugin2.view.workflow_steps_view import (
+from organelle_segmenter_plugin.view.workflow_steps_view import (
     WorkflowStepsView,
     IWorkflowStepsController,
     SegmenterModel,

@@ -1,8 +1,8 @@
 from qtpy.QtWidgets import QFrame, QVBoxLayout, QScrollArea, QLabel
 from qtpy.QtCore import Qt
 
-from organelle_segmenter_plugin2.core.view import ViewTemplate
-from organelle_segmenter_plugin2._style import Style
+from organelle_segmenter_plugin.core.view import ViewTemplate
+from organelle_segmenter_plugin._style import Style
 
 
 class MainTemplate(ViewTemplate):

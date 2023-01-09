@@ -2,10 +2,10 @@ import pytest
 
 from unittest import mock
 from unittest.mock import MagicMock, create_autospec, PropertyMock
-from organelle_segmenter_plugin2.core.controller import Controller, IApplication, IRouter, State
-from organelle_segmenter_plugin2.core.view_manager import ViewManager
-from organelle_segmenter_plugin2.core.view import View
-from organelle_segmenter_plugin2.core.viewer_abstraction import ViewerAbstraction
+from organelle_segmenter_plugin.core.controller import Controller, IApplication, IRouter, State
+from organelle_segmenter_plugin.core.view_manager import ViewManager
+from organelle_segmenter_plugin.core.view import View
+from organelle_segmenter_plugin.core.viewer_abstraction import ViewerAbstraction
 
 
 class MockController(Controller):

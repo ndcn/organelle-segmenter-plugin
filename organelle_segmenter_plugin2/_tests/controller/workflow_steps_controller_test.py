@@ -1,14 +1,14 @@
 import pytest
 from unittest import mock
 from unittest.mock import MagicMock, create_autospec, PropertyMock, patch
-from organelle_segmenter_plugin2.controller.workflow_steps_controller import WorkflowStepsController
-from organelle_segmenter_plugin2.core._interfaces import IApplication, IRouter
-from organelle_segmenter_plugin2.core.state import State
-from organelle_segmenter_plugin2.core.view_manager import ViewManager
-from organelle_segmenter_plugin2.model.channel import Channel
-from organelle_segmenter_plugin2.model.segmenter_model import SegmenterModel
-from organelle_segmenter_plugin2.core.viewer_abstraction import ViewerAbstraction
-from organelle_segmenter_plugin2.widgets.param_sweep_widget import ParamSweepWidget
+from organelle_segmenter_plugin.controller.workflow_steps_controller import WorkflowStepsController
+from organelle_segmenter_plugin.core._interfaces import IApplication, IRouter
+from organelle_segmenter_plugin.core.state import State
+from organelle_segmenter_plugin.core.view_manager import ViewManager
+from organelle_segmenter_plugin.model.channel import Channel
+from organelle_segmenter_plugin.model.segmenter_model import SegmenterModel
+from organelle_segmenter_plugin.core.viewer_abstraction import ViewerAbstraction
+from organelle_segmenter_plugin.widgets.param_sweep_widget import ParamSweepWidget
 from napari.qt.threading import create_worker, GeneratorWorker
 from ..mocks import MockLayer, MockWorker
 from aicssegmentation.workflow import WorkflowEngine, WorkflowStep, WorkflowDefinition

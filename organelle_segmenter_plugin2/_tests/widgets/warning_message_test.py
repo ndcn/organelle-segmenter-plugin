@@ -1,4 +1,4 @@
-from organelle_segmenter_plugin2.widgets.warning_message import WarningMessage
+from organelle_segmenter_plugin.widgets.warning_message import WarningMessage
 
 
 class TestWarningMessage:

@@ -1,8 +1,8 @@
 import pytest
 
 from unittest.mock import MagicMock, create_autospec
-from organelle_segmenter_plugin2.core.view_manager import ViewManager
-from organelle_segmenter_plugin2.core.view import View, ViewTemplate
+from organelle_segmenter_plugin.core.view_manager import ViewManager
+from organelle_segmenter_plugin.core.view import View, ViewTemplate
 from qtpy.QtWidgets import QFrame, QVBoxLayout
 
 # Custom Mock view implementations because QT doesn't like MagicMock widgets

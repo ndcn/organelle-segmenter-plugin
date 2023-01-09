@@ -13,7 +13,7 @@ from qtpy.QtWidgets import (
 )
 from qtpy.QtCore import Qt
 from typing import Dict, Any, List
-from organelle_segmenter_plugin2.widgets.form import Form, FormRow
+from organelle_segmenter_plugin.widgets.form import Form, FormRow
 from functools import partial
 from napari.qt import get_stylesheet
 

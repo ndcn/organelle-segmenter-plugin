@@ -1,6 +1,6 @@
 import pytest
 
-from organelle_segmenter_plugin2.util.lazy import lazy_property
+from organelle_segmenter_plugin.util.lazy import lazy_property
 
 
 class TestLazy:

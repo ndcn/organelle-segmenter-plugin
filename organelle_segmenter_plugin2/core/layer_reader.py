@@ -4,7 +4,7 @@ import logging
 from typing import List
 from aicsimageio import AICSImage
 from napari.layers import Layer
-from organelle_segmenter_plugin2.model.channel import Channel, ZSlice
+from organelle_segmenter_plugin.model.channel import Channel, ZSlice
 
 log = logging.getLogger(__name__)
 

@@ -1,5 +1,5 @@
 from typing import Any
-from organelle_segmenter_plugin2.core.view import View
+from organelle_segmenter_plugin.core.view import View
 from qtpy.QtWidgets import QLayout
 
 

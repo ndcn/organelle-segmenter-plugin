@@ -1,4 +1,4 @@
-from organelle_segmenter_plugin2.util.directories import Directories
+from organelle_segmenter_plugin.util.directories import Directories
 
 PAGE_WIDTH = 440
 PAGE_CONTENT_WIDTH = PAGE_WIDTH - 40

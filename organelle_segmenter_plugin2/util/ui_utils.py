@@ -1,6 +1,6 @@
 from qtpy.QtWidgets import QComboBox
 
-from organelle_segmenter_plugin2.widgets.form import FormRow
+from organelle_segmenter_plugin.widgets.form import FormRow
 
 
 class UiUtils:

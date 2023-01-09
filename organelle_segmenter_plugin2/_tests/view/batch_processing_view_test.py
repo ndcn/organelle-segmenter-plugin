@@ -3,7 +3,7 @@ import numpy as np
 
 from unittest import mock
 from unittest.mock import MagicMock, Mock, create_autospec
-from organelle_segmenter_plugin2.view.batch_processing_view import BatchProcessingView, IBatchProcessingController
+from organelle_segmenter_plugin.view.batch_processing_view import BatchProcessingView, IBatchProcessingController
 from aicssegmentation.workflow import WorkflowEngine
 
 
