@@ -1,8 +1,8 @@
 project_urls:
-  Bug Tracker: https://github.com/AllenCell/organelle-segmenter-plugin/issues
-  Documentation: https://github.com/AllenCell/organelle-segmenter-plugin#README.md
-  Source Code: https://github.com/AllenCell/organelle-segmenter-plugin
-  User Support: https://github.com/AllenCell/organelle-segmenter-plugin/issues
+  Bug Tracker: https://github.com/ndcn/organelle-segmenter-plugin/issues
+  Documentation: https://github.com/ndcn/organelle-segmenter-plugin#README.md
+  Source Code: https://github.com/ndcn/organelle-segmenter-plugin
+  User Support: https://github.com/ndcn/organelle-segmenter-plugin/issues
 
 # Add labels from the EDAM Bioimaging ontology
 labels:
