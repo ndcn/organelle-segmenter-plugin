@@ -1,15 +1,11 @@
 # organelle-segmenter-plugin
 
-
 [![License BSD-3](https://img.shields.io/pypi/l/organelle-segmenter-plugin.svg?color=green)](https://github.com/ergonyc/organelle-segmenter-plugin/raw/main/LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/organelle-segmenter-plugin.svg?color=green)](https://pypi.org/project/organelle-segmenter-plugin)
 [![Python Version](https://img.shields.io/pypi/pyversions/organelle-segmenter-plugin.svg?color=green)](https://python.org)
 [![tests](https://github.com/ergonyc/organelle-segmenter-plugin/workflows/tests/badge.svg)](https://github.com/ergonyc/organelle-segmenter-plugin/actions)
 [![codecov](https://codecov.io/gh/ergonyc/organelle-segmenter-plugin/branch/main/graph/badge.svg)](https://codecov.io/gh/ergonyc/organelle-segmenter-plugin)
 [![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/organelle-segmenter-plugin)](https://napari-hub.org/plugins/organelle-segmenter-plugin)
-
-🚨🚨🚨🚨 WARNING 🚨🚨🚨🚨 
-This is NOT yet working
 
  🚧 WIP 🚧
 A plugin that enables image segmentation of organelles from linearly-unmixed florescence images based on the segmenter tools provided by Allen Institute for Cell Science.  This fork is NOT a 3D (volumetric) segmentation at this time.  Instead it is a proof-of-concept which infers an "best" Z-slice / Z-projection and performes a 2D analysis.
@@ -41,7 +37,7 @@ https://napari.org/docs/plugins/index.html
 
 ## Installation 🚧 WIP 🚧
 
-### Option 2 (recommended): 
+### Option 1 (recommended): 
 
 Clone the repo and install as editable module via pip.  via [pip]:
 
@@ -55,7 +51,6 @@ After you installed the lastest version of napari, you can go to "Plugins" --> "
 ### Option 3: 🚧 COMING SOON 🚧 (not yet available on pypy)
 
 You can also install `organelle-segmenter-plugin` via [pip]:
-
     pip install organelle-segmenter-plugin
     
 ## Quick Start
