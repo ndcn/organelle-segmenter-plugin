@@ -46,21 +46,3 @@ Ready to contribute? Here's how to set up `organelle_segmenter_plugin` for local
     git push origin {your_development_type}/short-description
     ```
 
-7. Submit a pull request through the GitHub website.
-
-## Deploying
-
-A reminder for the maintainers on how to deploy.
-Make sure all your changes are committed.
-Then run:
-
-```bash
-bumpversion patch # possible: major / minor / patch
-git push
-git push --tags
-git branch -D release
-git checkout -b release
-git push --set-upstream origin release -f
-```
-
-This will release a new package version on Git + GitHub and publish to PyPI.
