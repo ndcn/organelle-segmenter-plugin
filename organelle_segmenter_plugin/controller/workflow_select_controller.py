@@ -91,7 +91,7 @@ class WorkflowSelectController(Controller, IWorkflowSelectController):
                 f"0: {self.model.selected_layer.name}: Z[{str(self.model.selected_channel.index)}]{workflow_name}"
             )
         # channel_data = self.model.selected_layer.data
-        print(f"channel_data shape {channel_data.shape}")
+        # print(f"channel_data shape {channel_data.shape}")
 
         self.model.active_workflow = self._workflow_engine.get_executable_workflow(workflow_name, channel_data)
 
