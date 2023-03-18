@@ -110,6 +110,7 @@ class WorkflowStepsController(Controller, IWorkflowStepsController):
         if not self._run_lock:
             selected_layers: List[Image] = self.viewer.get_active_layer()
             # all_layers: List[Image] = self.viewer.get_layers()
+
             cont: bool = True  # continue execution
 
             step_to_run: WorkflowStep = self.model.active_workflow.workflow_definition.steps[i]
