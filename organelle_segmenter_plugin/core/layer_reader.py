@@ -8,6 +8,8 @@ from organelle_segmenter_plugin.model.channel import Channel, ZSlice
 
 log = logging.getLogger(__name__)
 
+ALL_LAYERS = -999
+
 
 class LayerReader:
     """
@@ -52,7 +54,7 @@ class LayerReader:
 
         channels = list()
         # JAH: add a -1 channel/zslice for choosing all
-        channels.append(Channel(-1, "All"))
+        channels.append(Channel(ALL_LAYERS, "All"))
 
         for index in range(img.shape[index_c]):
             channels.append(Channel(index))
@@ -64,7 +66,7 @@ class LayerReader:
 
         channels = list()
         # JAH: add a -1 channel/zslice for choosing all
-        channels.append(Channel(-1, "All"))
+        channels.append(Channel(ALL_LAYERS, "All"))
 
         for index, name in enumerate(img.channel_names):
             channels.append(Channel(index, name))
@@ -115,7 +117,7 @@ class LayerReader:
         if channel_index < 0:
             return layer.data
         else:
-            return layer.data[:, [channel_index], :, :]
+            return layer.data[channel_index]
 
     def _get_channel_data_from_path(self, channel_index: int, image_path: str):
         print("in _get_channel_data_from_path()")
@@ -126,7 +128,7 @@ class LayerReader:
         if channel_index < 0:
             return img.get_image_data("CZYX")
         else:
-            return img.get_image_data("CZYX")[:, [channel_index], :, :]
+            return img.get_image_data("CZYX")[channel_index]
 
     def _should_read_from_path(self, layer: Layer):
         if layer.source is None:

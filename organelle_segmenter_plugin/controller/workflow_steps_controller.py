@@ -109,9 +109,11 @@ class WorkflowStepsController(Controller, IWorkflowStepsController):
         """
         if not self._run_lock:
             selected_layers: List[Image] = self.viewer.get_active_layer()
+            # all_layers: List[Image] = self.viewer.get_layers()
             cont: bool = True  # continue execution
 
             step_to_run: WorkflowStep = self.model.active_workflow.workflow_definition.steps[i]
+
             if len(step_to_run.parent) != len(selected_layers):
                 # too many or too few images selected as the input layer,
                 # abort run attempt and show warning
@@ -127,7 +129,6 @@ class WorkflowStepsController(Controller, IWorkflowStepsController):
                 # check to see if correct layers were selected to run this segmentation in order
                 # some steps require multiple layers.
                 for selected_layer in selected_layers:
-
                     if selected_layer.name[:1].isdigit() and int(selected_layer.name[:1]) not in step_to_run.parent:
                         # check to see if the correct image input layer is selected.
                         if i == 0:

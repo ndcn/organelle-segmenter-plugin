@@ -1,8 +1,9 @@
 from dataclasses import dataclass
 
+
 # TODO:  refactor Channel to ZSlice
 @dataclass
-class Channel:
+class Channel:  # These are really z-slices
     index: int
     name: str = None
 
@@ -13,12 +14,12 @@ class Channel:
 
         return f"Ch{self.index}.  {self.name}"
 
+    def __repr__(self):
+        return self.display_name
+
 
 @dataclass
-class ZSlice:
-    index: int
-    name: str = None
-
+class ZSlice(Channel):
     @property
     def display_name(self):
         if self.name is None or self.name.strip().isspace():

@@ -24,7 +24,6 @@ from ._main_template import MainTemplate
 
 
 class WorkflowSelectView(View):
-
     _combo_layers: QComboBox
     _combo_channels: QComboBox
     _load_image_warning: WarningMessage
@@ -73,7 +72,7 @@ class WorkflowSelectView(View):
         self._combo_layers.setMaxVisibleItems(20)
         self._combo_layers.activated.connect(self._combo_layers_activated)
 
-        channels_dropdown = UiUtils.dropdown_row("2.", "Select Z Slice (0)", enabled=False)
+        channels_dropdown = UiUtils.dropdown_row("2.", "Select Channels)", enabled=False)
         self._combo_channels = channels_dropdown.widget
         self._combo_channels.setStyleSheet("QComboBox { combobox-popup: 0; }")
         self._combo_channels.setMaxVisibleItems(20)
