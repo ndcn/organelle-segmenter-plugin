@@ -257,6 +257,7 @@ class WorkflowStepsView(View):  # pragma: no-cover
     def btn_run_clicked(self, step_index: int):
         parameters_for_step = self._get_workflow_step_widgets()[step_index].get_parameter_inputs()
         self._controller.run_step(step_index, parameters_for_step)
+        print(f"btn_run_clicked - {step_index}: {parameters_for_step}")
 
     def open_sweep_ui(self, step_index: int):
         params_for_step = self._get_workflow_step_widgets()[step_index].get_parameter_inputs()

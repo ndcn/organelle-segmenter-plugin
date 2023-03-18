@@ -63,6 +63,7 @@ class BatchProcessingController(Controller, IBatchProcessingController):
         self._output_folder = output_dir
 
         ready = self._ready_to_process()
+        # print(f" ch={channel_index}, inp={input_dir}, out={output_dir}   : ready={ready} ")
         self._view.update_button(ready)
 
     def _ready_to_process(self) -> bool:
@@ -82,8 +83,8 @@ class BatchProcessingController(Controller, IBatchProcessingController):
         if self._channel_index is None:
             return False
         # JAH: refactor channel -> z_slice
-        if self._z_index is None:
-            return False
+        # if self._z_index is None:
+        #     return False
 
         return True
 

@@ -74,13 +74,9 @@ class WorkflowSelectController(Controller, IWorkflowSelectController):
         self._view.update_workflows(enabled=False)
 
     def select_workflow(self, workflow_name):
-        # THis is where we need to access the data as "channel_data"
-        # TODO: refactor channel -> zslice
-
         if self.model.selected_channel.index < 0:
             # if channel.index < 1: it means we want everything...
             channel_data = self._layer_reader.get_all_data(self.model.selected_layer)
-            # JAH: channels are really zslices
             _layer_name = f"0: {self.model.selected_layer.name}: FULL {workflow_name}"
         else:
             # maybe
@@ -88,10 +84,8 @@ class WorkflowSelectController(Controller, IWorkflowSelectController):
                 self.model.selected_channel.index, self.model.selected_layer
             )
             _layer_name = (
-                f"0: {self.model.selected_layer.name}: Z[{str(self.model.selected_channel.index)}]{workflow_name}"
+                f"0: {self.model.selected_layer.name}: Ch[{str(self.model.selected_channel.index)}]{workflow_name}"
             )
-        # channel_data = self.model.selected_layer.data
-        # print(f"channel_data shape {channel_data.shape}")
 
         self.model.active_workflow = self._workflow_engine.get_executable_workflow(workflow_name, channel_data)
 
