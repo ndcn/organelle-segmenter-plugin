@@ -39,7 +39,8 @@ class ViewerAbstraction:
             return [self._viewer.layers.selection.active]
         else:
             # two or more layers are selected, return all
-            return list(self._viewer.layers.selection._set)
+            # return list(self._viewer.layers.selection._set)  # JAH: does removing the ._set work?
+            return list(self._viewer.layers.selection)
 
     def add_image_layer(self, image_data, name: str) -> Layer:
         """
@@ -54,3 +55,6 @@ class ViewerAbstraction:
 
     def get_theme(self):
         return self._viewer.theme
+
+
+# TODO:  add methods to discard and add active layers

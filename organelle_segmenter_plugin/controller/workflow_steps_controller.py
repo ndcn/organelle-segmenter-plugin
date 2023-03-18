@@ -108,12 +108,47 @@ class WorkflowStepsController(Controller, IWorkflowStepsController):
         dictionary, but with the parameter values obtained from the UI instead of default values.
         """
         if not self._run_lock:
-            selected_layers: List[Image] = self.viewer.get_active_layer()
-            # all_layers: List[Image] = self.viewer.get_layers()
-
-            cont: bool = True  # continue execution
-
+            all_layers: List[Image] = self.viewer.get_layers()
             step_to_run: WorkflowStep = self.model.active_workflow.workflow_definition.steps[i]
+
+            parents = step_to_run.parent
+
+            # def _search_for_parent(layer_in: List[Image], parent):
+            # HACK: there's got to be a more elegant way to do this
+            cont: bool = True  # continue execution
+            keep_layers = [layer for layer in all_layers if layer.name[:1].isdigit() and int(layer.name[:1]) in parents]
+            # de-select other layers
+            # [
+            #     self.viewer._viewer.layers.selection.discard(layer)
+            #     for layer in all_layers
+            #     if not layer.name[:1].isdigit() or int(layer.name[:1]) not in parents
+            # ]
+
+            for layer in all_layers:
+                if not layer.name[:1].isdigit() or int(layer.name[:1]) not in parents:
+                    self.viewer._viewer.layers.selection.discard(layer)
+
+            # TODO:  choose based on proximity to the end of the list (which corresponds to layers in GUI)
+            # choose the hightes numbered version for each parent layer
+            for parent in parents:
+                # find the parent layer
+                hold = [layer for layer in keep_layers if int(layer.name[:1]) == parent]
+                if len(hold) > 1:  # find the highest number
+                    hold.sort(reverse=True, key=lambda x: float(x.name.split(":")[0]))
+                    self.viewer._viewer.layers.selection.add(hold[0])
+                    print(f"selecting {hold[0].name}")
+                    # [self.viewer._viewer.layers.selection.discard(layer) for layer in hold[1:]]
+                    for layer in hold[1:]:
+                        self.viewer._viewer.layers.selection.discard(layer)
+
+                elif len(hold) == 1:
+                    self.viewer._viewer.layers.selection.add(hold[0])
+                    print(f"selecting {hold[0].name}")
+
+                else:  # should never get here empty hold
+                    print("wtf ")
+
+            selected_layers: List[Image] = self.viewer.get_active_layer()
 
             if len(step_to_run.parent) != len(selected_layers):
                 # too many or too few images selected as the input layer,
@@ -443,6 +478,7 @@ class WorkflowStepsController(Controller, IWorkflowStepsController):
             # reset rerun counter
             self._number_times_run = 0
 
+        # does it automatically activate when it gets added?
         active_layer = self.viewer.get_active_layer()[0]
         if self._current_params:
             if self._number_times_run == 0:
