@@ -63,6 +63,7 @@ class WorkflowStepsView(View):  # pragma: no-cover
         steps = self._add_workflow_steps(WorkflowStepCategory.CORE, steps)
         steps = self._add_workflow_steps(WorkflowStepCategory.POST_PROCESSING, steps)
         steps = self._add_workflow_steps(WorkflowStepCategory.POST_POST_PROCESSING, steps)
+        steps = self._add_workflow_steps(WorkflowStepCategory.EXPORT, steps)
         self._layout.addSpacing(20)
         self._layout.addStretch()
         self._add_bottom_buttons()

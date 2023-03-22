@@ -130,6 +130,9 @@ class WorkflowStepsController(Controller, IWorkflowStepsController):
 
             # TODO:  choose based on proximity to the end of the list (which corresponds to layers in GUI)
             # choose the hightes numbered version for each parent layer
+
+            selected_layers: List[Image] = []  # self.viewer.get_active_layer()
+
             for parent in parents:
                 # find the parent layer
                 hold = [layer for layer in keep_layers if int(layer.name[:1]) == parent]
@@ -137,18 +140,27 @@ class WorkflowStepsController(Controller, IWorkflowStepsController):
                     hold.sort(reverse=True, key=lambda x: float(x.name.split(":")[0]))
                     self.viewer._viewer.layers.selection.add(hold[0])
                     print(f"selecting {hold[0].name}")
+                    selected_layers.append(hold[0])
+
                     # [self.viewer._viewer.layers.selection.discard(layer) for layer in hold[1:]]
                     for layer in hold[1:]:
                         self.viewer._viewer.layers.selection.discard(layer)
 
                 elif len(hold) == 1:
                     self.viewer._viewer.layers.selection.add(hold[0])
+                    selected_layers.append(hold[0])
                     print(f"selecting {hold[0].name}")
-
                 else:  # should never get here empty hold
                     print("wtf ")
 
-            selected_layers: List[Image] = self.viewer.get_active_layer()
+            self.viewer.set_active_layer_list(selected_layers)
+            # NOTE: viewer.layers.selection is a set so NOT ordered,
+            #              but our selections need to be ordered... so we need to order them here...
+            # alphabetical
+            # sort_fn = lambda x: x.name
+            # selected_layers.sort(reverse=False, key= lambda x: x.name[:1])
+
+            # [i[0] for i in sorted(enumerate(selected_layers), key=lambda x:x[1].name[:1])]
 
             if len(step_to_run.parent) != len(selected_layers):
                 # too many or too few images selected as the input layer,
@@ -436,6 +448,9 @@ class WorkflowStepsController(Controller, IWorkflowStepsController):
         Run a specified step in a workflow.
         """
         selected_image = self.viewer.get_active_layer()
+        # BUG:  get_active_layer returns a list of a set, so we can't guarantee that the order is correct.
+        # HACK: order it here.
+
         step = self.model.active_workflow.workflow_definition.steps[index]
         result = self.model.active_workflow.execute_step(index, parameter_inputs, selected_image)
         self._steps = index
