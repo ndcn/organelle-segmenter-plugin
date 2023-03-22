@@ -104,6 +104,15 @@ class WorkflowSelectView(View):
         self._workflow_grid.workflowSelected.connect(self._workflow_selected)
         self.layout().addWidget(self._workflow_grid)
 
+        # TODO:  add alternative "load workflow widget here"
+        # e.g. from batch_processing_view
+        ## Workflow config
+        ## self.field_workflow_config = FileInput(
+        ##     mode=FileInputMode.FILE, filter="Json file (*.json)", placeholder_text="Load a JSON workflow file..."
+        ## )
+        ## self.field_workflow_config.file_selected.connect(self._form_field_changed)
+        ## row1 = FormRow("1.  Load workflow:", self.field_workflow_config)
+
     def update_layers(self, layers: List[str], selected_layer: Layer = None):
         """
         Update / repopulate the list of selectable layers

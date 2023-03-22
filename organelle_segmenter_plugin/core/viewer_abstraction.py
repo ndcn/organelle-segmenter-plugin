@@ -14,6 +14,7 @@ class ViewerAbstraction:
         if viewer is None:
             raise ValueError("viewer")
         self._viewer = viewer
+        self._active_layer_list: List[Layer] = []
 
     @property
     def events(self):
@@ -35,11 +36,36 @@ class ViewerAbstraction:
         inputs:
             viewer (Viewer): the Napari viewer
         """
+        # ORIGINAL
+        # if self._viewer.layers.selection.active:
+        #     return [self._viewer.layers.selection.active]
+        # else:
+        #     # two or more layers are selected, return all
+        #     # return list(self._viewer.layers.selection._set)  # JAH: does removing the ._set work?
+        #     print(f"retuning list of selection, {self._viewer.layers.selection}")
+        #     # NOTE: set is not ordered, but our selections need to be ordered... so
+        #     return list(self._viewer.layers.selection)
+        # HACK
         if self._viewer.layers.selection.active:
-            return [self._viewer.layers.selection.active]
+            self._active_layer_list = [self._viewer.layers.selection.active]
+            self.set_active_layer(self._active_layer_list[0])
+            return self._active_layer_list
         else:
             # two or more layers are selected, return all
-            return list(self._viewer.layers.selection._set)
+            # return list(self._viewer.layers.selection._set)  # JAH: does removing the ._set work?
+            # NOTE: set is not ordered, but our selections need to be ordered... so
+            active_layer_list = self._active_layer_list
+            return active_layer_list
+            # print(f"retuning list of selection, {self._viewer.layers.selection}")
+            # # return list(self._viewer.layers.selection)
+
+    def set_active_layer(self, layer: Layer):
+        self._viewer.layers.selection.active = layer
+
+    def set_active_layer_list(self, layers: List[Layer]):
+        # selection = self._viewer.layers.selection
+        self._active_layer_list = layers
+        # self._viewer.layers.selection.active = layer
 
     def add_image_layer(self, image_data, name: str) -> Layer:
         """
@@ -49,8 +75,8 @@ class ViewerAbstraction:
         """
         return self._viewer.add_image(image_data, name=name)
 
-    def set_active_layer(self, layer: Layer):
-        self._viewer.layers.selection.active = layer
-
     def get_theme(self):
         return self._viewer.theme
+
+
+# TODO:  add methods to discard and add active layers

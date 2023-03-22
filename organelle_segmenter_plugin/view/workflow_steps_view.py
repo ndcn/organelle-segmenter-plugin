@@ -63,10 +63,13 @@ class WorkflowStepsView(View):  # pragma: no-cover
         steps = self._add_workflow_steps(WorkflowStepCategory.CORE, steps)
         steps = self._add_workflow_steps(WorkflowStepCategory.POST_PROCESSING, steps)
         steps = self._add_workflow_steps(WorkflowStepCategory.POST_POST_PROCESSING, steps)
+        steps = self._add_workflow_steps(WorkflowStepCategory.EXPORT, steps)
         self._layout.addSpacing(20)
         self._layout.addStretch()
         self._add_bottom_buttons()
-        # self._setup_diagram_window()
+        # Hack descriptions...
+        self._setup_diagram_window()
+
         self._setup_close_workflow_window()
 
     def _add_workflow_title(self):
@@ -76,14 +79,15 @@ class WorkflowStepsView(View):  # pragma: no-cover
 
         # Make widgets
         workflow_name = QLabel(f"Workflow: {self._workflow.workflow_definition.name}")
-        # self.btn_workflow_info = QPushButton("ⓘ")
-        # self.btn_workflow_info.setObjectName("infoButton")
-        # self.btn_workflow_info.clicked.connect(self._btn_info_clicked)
+        # Hack descriptions...
+        self.btn_workflow_info = QPushButton("ⓘ")
+        self.btn_workflow_info.setObjectName("infoButton")
+        self.btn_workflow_info.clicked.connect(self._btn_info_clicked)
 
         # Add widgets and whitespace
         layout.addStretch()
         layout.addWidget(workflow_name)
-        # layout.addWidget(self.btn_workflow_info)
+        layout.addWidget(self.btn_workflow_info)
         layout.addStretch()
         layout.setSpacing(3)
 
@@ -157,22 +161,34 @@ class WorkflowStepsView(View):  # pragma: no-cover
 
         self._layout.addLayout(layout)
 
-    # def _setup_diagram_window(self):
-    #     self.window_workflow_diagram = QScrollArea()
-    #     diagram = QLabel()
-    #     # TODO: remove this when dimension order refactor happens
-    #     color_channel_size: int = min(np.shape(self._workflow.workflow_definition.diagram_image))
-    #     min_index: int = np.shape(self._workflow.workflow_definition.diagram_image).index(color_channel_size)
+    def _setup_diagram_window(self):
+        self.window_workflow_diagram = QScrollArea()
 
-    #     img_data = np.moveaxis(self._workflow.workflow_definition.diagram_image, min_index, -1)
-    #     img = QImage(img_data, img_data.shape[1], img_data.shape[0], QImage.Format.Format_RGB888)
-    #     diagram.setPixmap(QPixmap(img).scaledToWidth(1000, Qt.TransformationMode.SmoothTransformation))
+        # TODO: remove this when dimension order refactor happens
+        # color_channel_size: int = min(np.shape(self._workflow.workflow_definition.diagram_image))
+        # min_index: int = np.shape(self._workflow.workflow_definition.diagram_image).index(color_channel_size)
 
-    #     self.window_workflow_diagram.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
-    #     self.window_workflow_diagram.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
-    #     self.window_workflow_diagram.setFixedWidth(1000)
-    #     self.window_workflow_diagram.setMinimumHeight(800)
-    #     self.window_workflow_diagram.setWidget(diagram)
+        # img_data = np.moveaxis(self._workflow.workflow_definition.diagram_image, min_index, -1)
+        # img = QImage(img_data, img_data.shape[1], img_data.shape[0], QImage.Format.Format_RGB888)
+        # diagram.setPixmap(QPixmap(img).scaledToWidth(1000, Qt.TransformationMode.SmoothTransformation))
+
+        steps = 0
+        wdgts = []
+        for cat in WorkflowStepCategory:
+            header_text = cat.value.upper()
+            for step in filter(lambda step: step.category == cat, self._workflow.workflow_definition.steps):
+                # number.  step name
+                name = step.name
+                wdgts.append(header_text + f"\n {steps}:  {name}")
+                steps = steps + 1
+
+        diagram = QLabel().setText("\n".join(wdgts))
+
+        self.window_workflow_diagram.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
+        self.window_workflow_diagram.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        self.window_workflow_diagram.setFixedWidth(1000)
+        self.window_workflow_diagram.setMinimumHeight(800)
+        self.window_workflow_diagram.setWidget(diagram)
 
     def _setup_close_workflow_window(self):
         self.modal_close_workflow = QMessageBox()
@@ -224,8 +240,8 @@ class WorkflowStepsView(View):  # pragma: no-cover
     # Event handlers
     #####################################################################
 
-    # def _btn_info_clicked(self, checked: bool):
-    #     self.window_workflow_diagram.show()
+    def _btn_info_clicked(self, checked: bool):
+        self.window_workflow_diagram.show()
 
     def _btn_close_clicked(self, checked: bool):
         self.modal_close_workflow.exec()
