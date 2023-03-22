@@ -22,6 +22,7 @@ from organelle_segmenter_plugin._style import PAGE_CONTENT_WIDTH, Style
 # # JAH
 # from qtpy.QtGui import QStandardItem, QStandardItemModel
 # from organelle_segmenter_plugin.util.ui_utils import UiUtils
+# TODO:  rename this widget?  its not actually a dropdown but really the "grid" as buttons
 
 
 class WorkflowDropDown(QWidget):

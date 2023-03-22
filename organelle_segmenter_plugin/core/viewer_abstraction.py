@@ -49,16 +49,12 @@ class ViewerAbstraction:
         if self._viewer.layers.selection.active:
             self._active_layer_list = [self._viewer.layers.selection.active]
             self.set_active_layer(self._active_layer_list[0])
-            print(f"got active layer {self._active_layer_list }")
-
             return self._active_layer_list
         else:
             # two or more layers are selected, return all
             # return list(self._viewer.layers.selection._set)  # JAH: does removing the ._set work?
             # NOTE: set is not ordered, but our selections need to be ordered... so
             active_layer_list = self._active_layer_list
-            print(f"got layers {active_layer_list}")
-
             return active_layer_list
             # print(f"retuning list of selection, {self._viewer.layers.selection}")
             # # return list(self._viewer.layers.selection)
@@ -69,7 +65,6 @@ class ViewerAbstraction:
     def set_active_layer_list(self, layers: List[Layer]):
         # selection = self._viewer.layers.selection
         self._active_layer_list = layers
-        print(f"set layers {self._active_layer_list}")
         # self._viewer.layers.selection.active = layer
 
     def add_image_layer(self, image_data, name: str) -> Layer:
