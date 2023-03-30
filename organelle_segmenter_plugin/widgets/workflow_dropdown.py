@@ -65,7 +65,7 @@ class WorkflowDropDown(QWidget):
 
         ## LABELS + BUTTONS
         self._add_labels()
-        self._add_buttons(workflows)  # ACTUALLY MAKE A DROPDOWN
+        self._add_buttons(workflows)  #  MAKE A BUTTON for this workflow
 
     def _add_labels(self):
         """

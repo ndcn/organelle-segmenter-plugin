@@ -23,7 +23,7 @@ ReaderFunction = Callable[[PathOrPaths], List[LayerData]]
 
 SUPPORTED_FILENAME_PATTERNS = (".xyz", ".czi", ".tif", ".tiff")
 
-from infer_subc_2d.utils.file_io import reader_function
+from infer_subc_2d.core.file_io import reader_function
 
 # from functools import partial
 # from logging import getLogger
@@ -100,7 +100,6 @@ def napari_get_reader(path: PathOrPaths) -> Optional[ReaderFunction]:
 
 
 def xyz_file_reader(path: PathOrPaths) -> List[LayerData]:
-
     data, meta, layer_type = reader_function(path)[0]
 
     # fix name and channel_axis
@@ -113,6 +112,7 @@ def xyz_file_reader(path: PathOrPaths) -> List[LayerData]:
     meta["channel_names"] = channel_names
     meta["file_name"] = name
     layer_attributes = {"name": name, "metadata": meta}
+    # layer_type = "image"
     return [(data, layer_attributes, layer_type)]  # (data,meta) is fine since 'image' is default
 
 

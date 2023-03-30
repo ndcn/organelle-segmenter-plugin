@@ -130,8 +130,11 @@ class IBatchProcessingController(ABC):
         pass
 
     # JAH: refactor channel -> z_slice.  TODO: add z_slice
+    # added segmentation_name parameter
     @abstractmethod
-    def update_batch_parameters(self, workflow_config: Path, channel_index: int, input_dir: Path, output_dir: Path):
+    def update_batch_parameters(
+        self, workflow_config: Path, channel_index: int, input_dir: Path, output_dir: Path, segmentation_name: str
+    ):
         """
         Set / update batch processing parameters
         """

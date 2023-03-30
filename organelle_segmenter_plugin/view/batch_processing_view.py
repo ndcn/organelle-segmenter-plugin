@@ -14,6 +14,7 @@ class BatchProcessingView(View):
     field_workflow_config: FileInput
     field_input_dir: FileInput
     field_output_dir: FileInput
+    segmentation_name: str
 
     def __init__(self, controller: None):
         super().__init__(template_class=MainTemplate)
@@ -37,7 +38,6 @@ class BatchProcessingView(View):
         self.field_workflow_config = FileInput(
             mode=FileInputMode.FILE, filter="Json file (*.json)", placeholder_text="Load a JSON workflow file..."
         )
-        self.field_workflow_config.file_selected.connect(self._form_field_changed)
         row1 = FormRow("1.  Load workflow:", self.field_workflow_config)
 
         # Channel index  # change this to radio button
@@ -128,9 +128,12 @@ class BatchProcessingView(View):
 
     def _form_field_changed(self, value):
         workflow_config = self.field_workflow_config.selected_file
-        print(f"testing field_channel.text() = {self.field_channel.text()}")
+        print(f"testing workflow_config = {workflow_config.split('/')[-1].split('.')[0]}")
+        segmentation_name = workflow_config.split("/")[-1].split(".")[0]
+
         channel_index = int(self.field_channel.text()) if self.field_channel.text() else None
         input_dir = self.field_input_dir.selected_file
         output_dir = self.field_output_dir.selected_file
-
-        self._controller.update_batch_parameters(workflow_config, channel_index, input_dir, output_dir)
+        self._controller.update_batch_parameters(
+            workflow_config, channel_index, input_dir, output_dir, segmentation_name
+        )

@@ -59,7 +59,7 @@ class BatchCompleteDialog(QDialog):
             """
             <span>
                 <b>ORGANELLE STRUCTURE SEGMENTER</b><br/>
-                supports static 2D images only
+                supports static multi-channel 3D images
             </span>
             """
         )
