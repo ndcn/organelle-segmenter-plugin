@@ -30,6 +30,8 @@ class BatchProcessingController(Controller, IBatchProcessingController):
         self._z_index = None
         self._workflow_config = None
 
+        self._segmentation_name = None
+
         self._run_lock = False  # lock to avoid triggering multiple runs at the same time
         self._canceled = False
 
@@ -53,14 +55,25 @@ class BatchProcessingController(Controller, IBatchProcessingController):
         if self._worker is not None:
             self._worker.quit()
 
-    def update_batch_parameters(self, workflow_config: Path, channel_index: int, input_dir: Path, output_dir: Path):
+    def update_batch_parameters(
+        self, workflow_config: Path, channel_index: int, input_dir: Path, output_dir: Path, segmentation_name: str
+    ):
         # JAH: refactor channel -> z_slice
         # def update_batch_parameters(self, workflow_config: Path, z_index: int, input_dir: Path, output_dir: Path):
         self._workflow_config = workflow_config
+        print(f"---> workflow_config = {workflow_config.split('/')[-1].split('.')[0]}")
+
+        if segmentation_name is None:
+            segmentation_name = workflow_config.split("/")[-1].split(".")[0]
+        self._segmentation_name = segmentation_name
+        print(f"update batch params--> segmentation_name = {segmentation_name}")
+
         self._channel_index = channel_index
-        # self._z_index = z_index
         self._input_folder = input_dir
         self._output_folder = output_dir
+
+        # JAH: hack segmentation name
+        # self._z_index = z_index
 
         ready = self._ready_to_process()
         # print(f" ch={channel_index}, inp={input_dir}, out={output_dir}   : ready={ready} ")
@@ -75,6 +88,8 @@ class BatchProcessingController(Controller, IBatchProcessingController):
             (Bool): True if ready to start batch workflow, False if not
         """
         if self._workflow_config is None:
+            return False
+        if self._segmentation_name is None:
             return False
         if self._input_folder is None:
             return False
@@ -93,8 +108,13 @@ class BatchProcessingController(Controller, IBatchProcessingController):
             warnings.simplefilter("ignore")
 
             # JAH: refactor channel -> z_slice... what do i need to do for the workflow engine?
+            # add segmentation name
             batch_workflow = self._workflow_engine.get_executable_batch_workflow_from_config_file(
-                self._workflow_config, self._input_folder, self._output_folder, channel_index=self._channel_index
+                self._workflow_config,
+                self._input_folder,
+                self._output_folder,
+                segmentation_name=self._segmentation_name,
+                channel_index=self._channel_index,
             )
 
             while not batch_workflow.is_done():

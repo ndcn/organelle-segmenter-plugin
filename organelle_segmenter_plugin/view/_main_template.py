@@ -39,7 +39,7 @@ class MainTemplate(ViewTemplate):
             """
             <span>
                 <b>ORGANELLE SEGMENTER</b><br/>
-                supports static 2D images only
+                supports static multi-channel 3D images
             </span>
             """
         )
