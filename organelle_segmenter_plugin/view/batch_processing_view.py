@@ -1,5 +1,6 @@
 from qtpy.QtWidgets import QProgressBar, QVBoxLayout, QWidget, QLineEdit, QPushButton, QLabel
-from qtpy.QtGui import QIntValidator
+
+# from qtpy.QtGui import QIntValidator
 from organelle_segmenter_plugin.core.view import View
 from organelle_segmenter_plugin.controller._interfaces import IBatchProcessingController
 from organelle_segmenter_plugin.widgets.form import Form, FormRow
@@ -10,7 +11,8 @@ from ._main_template import MainTemplate
 class BatchProcessingView(View):
     btn_run_batch: QPushButton
     progress_bar: QProgressBar
-    field_channel: QLineEdit
+    # field_channel: QLineEdit
+    field_segmentation_name: QLineEdit
     field_workflow_config: FileInput
     field_input_dir: FileInput
     field_output_dir: FileInput
@@ -40,11 +42,16 @@ class BatchProcessingView(View):
         )
         row1 = FormRow("1.  Load workflow:", self.field_workflow_config)
 
-        # Channel index  # change this to radio button
-        self.field_channel = QLineEdit("-1")
-        self.field_channel.setValidator(QIntValidator(bottom=-2))
-        self.field_channel.textChanged.connect(self._form_field_changed)
-        row2 = FormRow("2.  Structure channel index:", self.field_channel)
+        # output name (populate default from json when loaded)
+        self.field_segmentation_name = QLineEdit("SEGMENT")
+        self.field_segmentation_name.textChanged.connect(self._form_field_changed)
+        row2 = FormRow("2.  Segmentation Name", self.field_segmentation_name)
+
+        # # Channel index  # change this to radio button
+        # self.field_channel = QLineEdit("segmentation")
+        # self.field_channel.setValidator(QIntValidator(bottom=-2))
+        # self.field_channel.textChanged.connect(self._form_field_changed)
+        # row2 = FormRow("2.  Structure channel index:", self.field_channel)
 
         # Input dir
         self.field_input_dir = FileInput(mode=FileInputMode.DIRECTORY, placeholder_text="Select a directory...")
@@ -58,7 +65,7 @@ class BatchProcessingView(View):
 
         # Help
         label = QLabel()
-        label.setText("Supported file formats: .tif, .tiff, .czi, .ome.tif, .ome.tiff")
+        label.setText("Supported file formats: .czi (.tiff, tif, .ome.tif, .ome.tiff)")
 
         form = QWidget()
         form.setLayout(Form([row1, row2, row3, row4]))
@@ -129,9 +136,16 @@ class BatchProcessingView(View):
     def _form_field_changed(self, value):
         workflow_config = self.field_workflow_config.selected_file
         print(f"testing workflow_config = {workflow_config.split('/')[-1].split('.')[0]}")
-        segmentation_name = workflow_config.split("/")[-1].split(".")[0]
 
-        channel_index = int(self.field_channel.text()) if self.field_channel.text() else None
+        segmentation_name = (
+            self.field_segmentation_name.text()
+            if self.field_segmentation_name.text()
+            else workflow_config.split("/")[-1].split(".")[0]
+        )
+
+        channel_index = -1.0
+        # channel_index = int(self.field_channel.text()) if self.field_channel.text() else None
+
         input_dir = self.field_input_dir.selected_file
         output_dir = self.field_output_dir.selected_file
         self._controller.update_batch_parameters(
