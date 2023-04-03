@@ -27,7 +27,6 @@ class BatchProcessingController(Controller, IBatchProcessingController):
         self._input_folder = None
         self._output_folder = None
         self._channel_index = None
-        self._z_index = None
         self._workflow_config = None
 
         self._segmentation_name = None
@@ -58,22 +57,16 @@ class BatchProcessingController(Controller, IBatchProcessingController):
     def update_batch_parameters(
         self, workflow_config: Path, channel_index: int, input_dir: Path, output_dir: Path, segmentation_name: str
     ):
-        # JAH: refactor channel -> z_slice
-        # def update_batch_parameters(self, workflow_config: Path, z_index: int, input_dir: Path, output_dir: Path):
         self._workflow_config = workflow_config
-        print(f"---> workflow_config = {workflow_config.split('/')[-1].split('.')[0]}")
-
         if segmentation_name is None:
             segmentation_name = workflow_config.split("/")[-1].split(".")[0]
+            print(f"should never get here--> programmic segmentation_name = {segmentation_name}")
+
         self._segmentation_name = segmentation_name
-        print(f"update batch params--> segmentation_name = {segmentation_name}")
 
         self._channel_index = channel_index
         self._input_folder = input_dir
         self._output_folder = output_dir
-
-        # JAH: hack segmentation name
-        # self._z_index = z_index
 
         ready = self._ready_to_process()
         # print(f" ch={channel_index}, inp={input_dir}, out={output_dir}   : ready={ready} ")
@@ -97,9 +90,6 @@ class BatchProcessingController(Controller, IBatchProcessingController):
             return False
         if self._channel_index is None:
             return False
-        # JAH: refactor channel -> z_slice
-        # if self._z_index is None:
-        #     return False
 
         return True
 
@@ -125,7 +115,6 @@ class BatchProcessingController(Controller, IBatchProcessingController):
 
     def _on_step_processed(self, processed_args: Tuple[int, int]):
         processed_files, total_files = processed_args
-
         # Update progress
         progress = 100 * processed_files // total_files
         self._view.set_progress(progress)
