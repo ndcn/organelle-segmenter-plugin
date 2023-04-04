@@ -25,7 +25,7 @@ from organelle_segmenter_plugin._style import PAGE_CONTENT_WIDTH, Style
 # TODO:  rename this widget?  its not actually a dropdown but really the "grid" as buttons
 
 
-class WorkflowDropDown(QWidget):
+class WorkflowButtons(QWidget):
 
     """
     A widget containing buttons for workflows. ()

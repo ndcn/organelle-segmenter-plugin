@@ -4,7 +4,7 @@ import logging
 from typing import List
 from aicsimageio import AICSImage
 from napari.layers import Layer
-from organelle_segmenter_plugin.model.channel import Channel, ZSlice
+from organelle_segmenter_plugin.model.channel import Channel
 
 log = logging.getLogger(__name__)
 
@@ -16,7 +16,6 @@ class LayerReader:
     Reader / Helper class to extract information out of Napari Layers
     """
 
-    # TODO: refactor channels -> zslices
     def get_channels(self, layer: Layer) -> List[Channel]:
         """
         Get the list of image channels from a layer
@@ -39,7 +38,6 @@ class LayerReader:
 
         return self._get_channels_default(layer)
 
-    # refactor to get list of zslices instead of channels.. but packing ionto Channels
     def _get_channels_default(self, layer: Layer) -> List[Channel]:
         if len(layer.data.shape) == 6:
             # Has scenes
@@ -65,7 +63,6 @@ class LayerReader:
         img.set_scene(0)
 
         channels = list()
-        # JAH: add a -1 channel/zslice for choosing all
         channels.append(Channel(ALL_LAYERS, "All"))
 
         for index, name in enumerate(img.channel_names):
