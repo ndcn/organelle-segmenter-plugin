@@ -73,6 +73,15 @@ class WorkflowSelectController(Controller, IWorkflowSelectController):
         self.model.selected_channel = None
         self._view.update_workflows(enabled=False)
 
+    ##  JAH:  HACK
+    def add_workflow(self, workflow_name):
+        # self.model.active_workflow = self._workflow_engine.get_executable_workflow(workflow_name, channel_data)
+        # self.model.active_workflow = self._workflow_engine.get_executable_workflow(workflow_name, channel_data)
+
+        # self.viewer.add_image_layer(channel_data, name=_layer_name)  # layer 0
+
+        self.router.workflow_steps()
+
     def select_workflow(self, workflow_name):
         if self.model.selected_channel.index < 0:
             # if channel.index < 1: it means we want everything...

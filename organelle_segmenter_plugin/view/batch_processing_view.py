@@ -4,8 +4,10 @@ from qtpy.QtWidgets import QProgressBar, QVBoxLayout, QWidget, QLineEdit, QPushB
 from organelle_segmenter_plugin.core.view import View
 from organelle_segmenter_plugin.controller._interfaces import IBatchProcessingController
 from organelle_segmenter_plugin.widgets.form import Form, FormRow
-from organelle_segmenter_plugin.widgets.file_input import FileInput, FileInputMode
+from organelle_segmenter_plugin.widgets.file_input import FileInput, FileInputMode, DirInput
 from ._main_template import MainTemplate
+
+from pathlib import Path
 
 
 class BatchProcessingView(View):
@@ -14,8 +16,8 @@ class BatchProcessingView(View):
     # field_channel: QLineEdit
     field_segmentation_name: QLineEdit
     field_workflow_config: FileInput
-    field_input_dir: FileInput
-    field_output_dir: FileInput
+    field_input_dir: DirInput
+    field_output_dir: DirInput
     segmentation_name: str
 
     def __init__(self, controller: None):
@@ -54,12 +56,12 @@ class BatchProcessingView(View):
         # row2 = FormRow("2.  Structure channel index:", self.field_channel)
 
         # Input dir
-        self.field_input_dir = FileInput(mode=FileInputMode.DIRECTORY, placeholder_text="Select a directory...")
+        self.field_input_dir = DirInput(mode=FileInputMode.DIRECTORY, placeholder_text="Select a directory...")
         self.field_input_dir.file_selected.connect(self._form_field_changed)
         row3 = FormRow("3.  Input directory:", self.field_input_dir)
 
         # Output dir
-        self.field_output_dir = FileInput(mode=FileInputMode.DIRECTORY, placeholder_text="Select a directory...")
+        self.field_output_dir = DirInput(mode=FileInputMode.DIRECTORY, placeholder_text="Select a directory...")
         self.field_output_dir.file_selected.connect(self._form_field_changed)
         row4 = FormRow("4.  Output directory:", self.field_output_dir)
 
@@ -135,14 +137,20 @@ class BatchProcessingView(View):
 
     def _form_field_changed(self, value):
         workflow_config = self.field_workflow_config.selected_file
-        print(f"testing workflow_config = {workflow_config.split('/')[-1].split('.')[0]}")
 
-        segmentation_name = (
-            self.field_segmentation_name.text()
-            if self.field_segmentation_name.text()
-            else workflow_config.split("/")[-1].split(".")[0]
-        )
+        # if isinstance(workflow_config, list):
 
+        # else:
+
+        # print(f"testing workflow_config = {workflow_config.split('/')[-1].split('.')[0]}")
+
+        # segmentation_name = (
+        #     self.field_segmentation_name.text()
+        #     if self.field_segmentation_name.text()
+        #     else workflow_config.split("/")[-1].split(".")[0]
+        # )
+
+        segmentation_name = [Path(wf).stem.split("_")[0] for wf in workflow_config]
         channel_index = -1.0
         # channel_index = int(self.field_channel.text()) if self.field_channel.text() else None
 

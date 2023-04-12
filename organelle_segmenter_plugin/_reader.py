@@ -103,7 +103,7 @@ def xyz_file_reader(path: PathOrPaths) -> List[LayerData]:
     data, meta, layer_type = reader_function(path)[0]
 
     # fix name and channel_axis
-    name = path.split("/")[-1].split(".")[0]
+    name = path.stem
     # channel_axis = meta.pop("channel_axis")
     channel_names = meta.pop("name")  # list of names for each layer
     # scale = meta.pop("scale")
@@ -111,7 +111,9 @@ def xyz_file_reader(path: PathOrPaths) -> List[LayerData]:
     # meta["_scale"] = scale  # this makes things easier later
     meta["channel_names"] = channel_names
     meta["file_name"] = name
-    layer_attributes = {"name": name, "metadata": meta}
+
+    # HACK: prevent numeric start of layer names
+    layer_attributes = {"name": "-" + name, "metadata": meta}
     # layer_type = "image"
     return [(data, layer_attributes, layer_type)]  # (data,meta) is fine since 'image' is default
 

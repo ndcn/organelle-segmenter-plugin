@@ -117,7 +117,7 @@ class IBatchProcessingController(ABC):
     # added segmentation_name parameter
     @abstractmethod
     def update_batch_parameters(
-        self, workflow_config: Path, channel_index: int, input_dir: Path, output_dir: Path, segmentation_name: str
+        self, workflow_config: List[Path], channel_index: int, input_dir: Path, output_dir: Path, segmentation_name: List[str]
     ):
         """
         Set / update batch processing parameters
