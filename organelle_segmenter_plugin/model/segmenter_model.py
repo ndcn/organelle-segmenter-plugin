@@ -22,6 +22,8 @@ class SegmenterModel:
     workflows: List[str] = None
     active_workflow: Workflow = None
 
+    prebuilt_workflows: List[str] = None
+
     def reset(self):
         """
         Reset model state

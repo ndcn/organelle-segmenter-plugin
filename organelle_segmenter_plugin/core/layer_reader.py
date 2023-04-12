@@ -47,8 +47,8 @@ class LayerReader:
         img = AICSImage(image_from_layer)  # gives us a 6D image
         img.set_scene(0)
 
-        # index_c = img.dims.order.index("C")
-        index_c = img.dims.order.index("Z")
+        index_c = img.dims.order.index("C")
+        # index_c = img.dims.order.index("Z")
 
         channels = list()
         # JAH: add a -1 channel/zslice for choosing all

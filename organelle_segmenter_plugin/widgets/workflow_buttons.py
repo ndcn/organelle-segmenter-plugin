@@ -67,6 +67,14 @@ class WorkflowButtons(QWidget):
         self._add_labels()
         self._add_buttons(workflows)  #  MAKE A BUTTON for this workflow
 
+        # start with empty
+        self._additional_workflows = additional_workflows = []
+        self._add_additional_buttons(additional_workflows)  #  MAKE A BUTTON for this workflow
+
+    def _update_additional_workflows(self, workflows: List[WorkflowDefinition]):
+        self._additional_workflows = workflows
+        # now UPDATE buttons
+
     def _add_labels(self):
         """
         Add widgets and set the layout for the Step 3 instructions and the workflow buttons
@@ -99,7 +107,33 @@ class WorkflowButtons(QWidget):
         self.column_labels.setObjectName("columnLabelsDisabled")
         self.layout().addWidget(self.column_labels, alignment=QtCore.Qt.AlignCenter)
 
+        new_label = QLabel("additional workflows")
+        new_label.setAlignment(QtCore.Qt.AlignCenter)
+        # segmentation_output_label = QLabel("right column")
+        # segmentation_output_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.column_labels.layout().addWidget(new_label)
+        # self.column_labels.layout().addWidget(segmentation_output_label)
+
     def _add_buttons(self, workflows: List[WorkflowDefinition]):
+        """
+        Add all buttons given a List of WorkflowDefinitions
+        """
+
+        # layout = QHBoxLayout()
+        # layout.setSpacing(5)
+        for workflow in workflows:
+            button = QPushButton(workflow.name)
+            # button.setFixedWidth(240)
+            button.setToolTip(workflow.name)
+            button.setEnabled(False)
+            button.setObjectName(workflow.name)
+            button.clicked.connect(self._workflow_button_clicked)
+            self.layout().addWidget(button)
+        #     layout.addWidget(button)
+
+        # self._layout.addLayout(layout)
+
+    def _add_additional_buttons(self, workflows: List[WorkflowDefinition]):
         """
         Add all buttons given a List of WorkflowDefinitions
         """

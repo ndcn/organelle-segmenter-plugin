@@ -59,7 +59,7 @@ class BatchProcessingController(Controller, IBatchProcessingController):
     ):
         self._workflow_config = workflow_config
         if segmentation_name is None:
-            segmentation_name = workflow_config.split("/")[-1].split(".")[0]
+            segmentation_name = workflow_config.stem
             print(f"should never get here--> programmic segmentation_name = {segmentation_name}")
 
         self._segmentation_name = segmentation_name

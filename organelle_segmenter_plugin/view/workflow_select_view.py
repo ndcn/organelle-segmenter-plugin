@@ -15,9 +15,11 @@ from organelle_segmenter_plugin.model.channel import Channel
 from organelle_segmenter_plugin.model.segmenter_model import SegmenterModel
 from organelle_segmenter_plugin.controller._interfaces import IWorkflowSelectController
 from organelle_segmenter_plugin.core.view import View
-from organelle_segmenter_plugin.widgets.form import Form
+from organelle_segmenter_plugin.widgets.form import Form, FormRow
 from organelle_segmenter_plugin.widgets.warning_message import WarningMessage
 from organelle_segmenter_plugin.util.ui_utils import UiUtils
+from organelle_segmenter_plugin.widgets.file_input import FileInput, FileInputMode
+
 
 from organelle_segmenter_plugin.widgets.workflow_buttons import WorkflowButtons
 from ._main_template import MainTemplate
@@ -78,10 +80,15 @@ class WorkflowSelectView(View):
         self._combo_channels.setMaxVisibleItems(20)
         self._combo_channels.activated.connect(self._combo_channels_activated)
 
-        layer_channel_selections = QWidget()
-        layer_channel_selections.setLayout(Form([layers_dropdown, channels_dropdown]))
+        # Workflow config add
+        field_input_dir = FileInput(
+            mode=FileInputMode.FILE, filter="Json file (*.json)", placeholder_text="Load a JSON workflow file..."
+        )
+        add_workflow = FormRow("5.  Load additional workflow:", field_input_dir)
 
-      
+        layer_channel_selections = QWidget()
+        layer_channel_selections.setLayout(Form([layers_dropdown, channels_dropdown, add_workflow]))
+
         # Add all widgets
         widgets = [
             workflow_selection_title,
@@ -125,7 +132,6 @@ class WorkflowSelectView(View):
             self._combo_layers.setEnabled(True)
             self._load_image_warning.setVisible(False)
 
-    # TODO: refactor channels -> zslices, Channel -> ZSlice
     def update_channels(self, channels: List[Channel], selected_channel: Channel = None):
         """
         Update / repopulate the list of selectable channels
