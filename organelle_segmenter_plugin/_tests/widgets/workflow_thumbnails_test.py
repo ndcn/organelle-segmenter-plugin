@@ -3,21 +3,21 @@ from qtpy.QtWidgets import QPushButton
 import pytest
 
 from aicssegmentation.workflow import WorkflowEngine
-from organelle_segmenter_plugin.widgets.workflow_dropdown import WorkflowDD
+from organelle_segmenter_plugin.widgets.workflow_buttons import WorkflowButtons
 
 
-class TestWorkflowDD:
+class TestWorkflowButtons:
     def setup_method(self):
         self._workflow_definitions = WorkflowEngine().workflow_definitions
 
     def test_make_widget(self):
-        assert WorkflowDD() is not None
-        widget = WorkflowDD(self._workflow_definitions)
+        assert WorkflowButtons() is not None
+        widget = WorkflowButtons(self._workflow_definitions)
         assert widget is not None
         assert widget.workflow_definitions == self._workflow_definitions
 
     def test_load_workflows(self):
-        widget = WorkflowDD()
+        widget = WorkflowButtons()
         widget.load_workflows(self._workflow_definitions)
         assert widget.workflow_definitions == self._workflow_definitions
 
@@ -28,7 +28,7 @@ class TestWorkflowDD:
         def _workflow_selected():
             self._counter += 1
 
-        widget = WorkflowDD(self._workflow_definitions)
+        widget = WorkflowButtons(self._workflow_definitions)
         widget.workflowSelected.connect(_workflow_selected)
         buttons: List[QPushButton] = widget.findChildren(QPushButton)
 

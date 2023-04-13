@@ -12,6 +12,8 @@ from organelle_segmenter_plugin.view.batch_processing_view import BatchProcessin
 from organelle_segmenter_plugin.widgets.batch_complete_dialog import BatchCompleteDialog
 from ._interfaces import IBatchProcessingController
 
+from typing import List
+
 
 class BatchProcessingController(Controller, IBatchProcessingController):
     _worker: GeneratorWorker = None
@@ -27,8 +29,11 @@ class BatchProcessingController(Controller, IBatchProcessingController):
         self._input_folder = None
         self._output_folder = None
         self._channel_index = None
+
+        self._workflow_config = None
         self._workflow_config = None
 
+        self._segmentation_names = None
         self._segmentation_name = None
 
         self._run_lock = False  # lock to avoid triggering multiple runs at the same time
@@ -55,14 +60,22 @@ class BatchProcessingController(Controller, IBatchProcessingController):
             self._worker.quit()
 
     def update_batch_parameters(
-        self, workflow_config: Path, channel_index: int, input_dir: Path, output_dir: Path, segmentation_name: str
+        self,
+        workflow_configs: List[Path],
+        channel_index: int,
+        input_dir: Path,
+        output_dir: Path,
+        segmentation_names: List[str],
     ):
-        self._workflow_config = workflow_config
-        if segmentation_name is None:
-            segmentation_name = workflow_config.split("/")[-1].split(".")[0]
-            print(f"should never get here--> programmic segmentation_name = {segmentation_name}")
+        self._workflow_configs = workflow_configs
+        self._workflow_config = workflow_configs[0]
+        if segmentation_names is None:
+            # segmentation_names = [wf.stem.split("_")[0] for wf in workflow_configs]
+            segmentation_names = [wf.stem.split("-")[-1] for wf in workflow_configs]
+            print(f"should never get here--> programmic segmentation_name = {segmentation_names}")
 
-        self._segmentation_name = segmentation_name
+        self._segmentation_names = segmentation_names
+        self._segmentation_name = segmentation_names[0]
 
         self._channel_index = channel_index
         self._input_folder = input_dir
@@ -90,7 +103,11 @@ class BatchProcessingController(Controller, IBatchProcessingController):
             return False
         if self._channel_index is None:
             return False
-
+        # JAH: hack
+        if self._workflow_configs is None:
+            return False
+        if self._segmentation_names is None:
+            return False
         return True
 
     def _run_batch_async(self) -> Generator[Tuple[int, int], None, None]:
@@ -99,19 +116,26 @@ class BatchProcessingController(Controller, IBatchProcessingController):
 
             # JAH: refactor channel -> z_slice... what do i need to do for the workflow engine?
             # add segmentation name
-            batch_workflow = self._workflow_engine.get_executable_batch_workflow_from_config_file(
-                self._workflow_config,
+            # batch_workflow = self._workflow_engine.get_executable_batch_workflow_from_config_file(
+            #     self._workflow_config,
+            #     self._input_folder,
+            #     self._output_folder,
+            #     segmentation_name=self._segmentation_name,
+            #     channel_index=self._channel_index,
+            # )
+            batch_workflows = self._workflow_engine.get_executable_batch_workflows_from_config_file(
+                self._workflow_configs,
                 self._input_folder,
                 self._output_folder,
-                segmentation_name=self._segmentation_name,
+                segmentation_names=self._segmentation_names,
                 channel_index=self._channel_index,
             )
 
-            while not batch_workflow.is_done():
-                batch_workflow.execute_next()
-                yield batch_workflow.processed_files, batch_workflow.total_files
+            while not batch_workflows.is_done():
+                batch_workflows.execute_next()
+                yield batch_workflows.processed_files, batch_workflows.total_files
 
-            batch_workflow.write_log_file_summary()
+            batch_workflows.write_log_file_summary()
 
     def _on_step_processed(self, processed_args: Tuple[int, int]):
         processed_files, total_files = processed_args

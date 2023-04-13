@@ -15,11 +15,13 @@ from organelle_segmenter_plugin.model.channel import Channel
 from organelle_segmenter_plugin.model.segmenter_model import SegmenterModel
 from organelle_segmenter_plugin.controller._interfaces import IWorkflowSelectController
 from organelle_segmenter_plugin.core.view import View
-from organelle_segmenter_plugin.widgets.form import Form
+from organelle_segmenter_plugin.widgets.form import Form, FormRow
 from organelle_segmenter_plugin.widgets.warning_message import WarningMessage
 from organelle_segmenter_plugin.util.ui_utils import UiUtils
+from organelle_segmenter_plugin.widgets.file_input import FileInput, FileInputMode
 
-from organelle_segmenter_plugin.widgets.workflow_dropdown import WorkflowDropDown
+
+from organelle_segmenter_plugin.widgets.workflow_buttons import WorkflowButtons
 from ._main_template import MainTemplate
 
 
@@ -27,7 +29,7 @@ class WorkflowSelectView(View):
     _combo_layers: QComboBox
     _combo_channels: QComboBox
     _load_image_warning: WarningMessage
-    _workflow_grid: WorkflowDropDown
+    _workflow_buttons: WorkflowButtons
     # _combo_workflows: QComboBox
     # _workflows: List[WorkflowDefinition]
     # _workflow_names: List[str]
@@ -78,18 +80,14 @@ class WorkflowSelectView(View):
         self._combo_channels.setMaxVisibleItems(20)
         self._combo_channels.activated.connect(self._combo_channels_activated)
 
+        # Workflow config add
+        field_input_dir = FileInput(
+            mode=FileInputMode.FILE, filter="Json file (*.json)", placeholder_text="Load a JSON workflow file..."
+        )
+        add_workflow = FormRow("5.  Load additional workflow:", field_input_dir)
+
         layer_channel_selections = QWidget()
-        layer_channel_selections.setLayout(Form([layers_dropdown, channels_dropdown]))
-
-        # # JAH dropdown to replace WorkflowDD widget
-        # workflows_dropdown = UiUtils.dropdown_row("3.", "Select a workflow", enabled=False)
-        # self._combo_workflows = workflows_dropdown.widget
-        # self._combo_channels.setStyleSheet("QComboBox { combobox-popup: 0; }")
-        # self._combo_workflows.setMaxVisibleItems(20)
-        # self._combo_workflows.activated.connect(self._combo_workflows_activated)
-
-        # # JAH
-        # layer_channel_selections.setLayout(Form([layers_dropdown, channels_dropdown, workflows_dropdown]))
+        layer_channel_selections.setLayout(Form([layers_dropdown, channels_dropdown, add_workflow]))
 
         # Add all widgets
         widgets = [
@@ -100,9 +98,9 @@ class WorkflowSelectView(View):
         for widget in widgets:
             layout.addWidget(widget)
 
-        self._workflow_grid = WorkflowDropDown()
-        self._workflow_grid.workflowSelected.connect(self._workflow_selected)
-        self.layout().addWidget(self._workflow_grid)
+        self._workflow_buttons = WorkflowButtons()
+        self._workflow_buttons.workflowSelected.connect(self._workflow_selected)
+        self.layout().addWidget(self._workflow_buttons)
 
         # TODO:  add alternative "load workflow widget here"
         # e.g. from batch_processing_view
@@ -134,7 +132,6 @@ class WorkflowSelectView(View):
             self._combo_layers.setEnabled(True)
             self._load_image_warning.setVisible(False)
 
-    # TODO: refactor channels -> zslices, Channel -> ZSlice
     def update_channels(self, channels: List[Channel], selected_channel: Channel = None):
         """
         Update / repopulate the list of selectable channels
@@ -172,7 +169,7 @@ class WorkflowSelectView(View):
         Inputs:
             enabled: True to enable the list, False to disable it
         """
-        self._workflow_grid.setEnabled(enabled)
+        self._workflow_buttons.setEnabled(enabled)
 
     def _load_workflows(self, workflows: List[WorkflowDefinition]):
         """
@@ -180,7 +177,7 @@ class WorkflowSelectView(View):
         """
         # self._workflow = workflows
         # self._workflow_names = [wf.name for wf in workflows]
-        self._workflow_grid.load_workflows(workflows)
+        self._workflow_buttons.load_workflows(workflows)
 
     def _reset_combo_box(self, combo: QComboBox):
         """

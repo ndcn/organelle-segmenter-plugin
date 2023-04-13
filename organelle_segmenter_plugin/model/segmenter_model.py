@@ -15,12 +15,14 @@ class SegmenterModel:
 
     layers: List[str] = None
     selected_layer: Layer = None
-    # for infer_subc_2d we actually want to select Z's not channels
-    # TODO: change channels to zslices & selected_zslice
+
     channels: List[str] = None
     selected_channel: Channel = None
+
     workflows: List[str] = None
     active_workflow: Workflow = None
+
+    prebuilt_workflows: List[str] = None
 
     def reset(self):
         """
