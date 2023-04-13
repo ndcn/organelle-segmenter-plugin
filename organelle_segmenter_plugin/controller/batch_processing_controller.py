@@ -72,7 +72,6 @@ class BatchProcessingController(Controller, IBatchProcessingController):
         if segmentation_names is None:
             # segmentation_names = [wf.stem.split("_")[0] for wf in workflow_configs]
             segmentation_names = [wf.stem.split("-")[-1] for wf in workflow_configs]
-
             print(f"should never get here--> programmic segmentation_name = {segmentation_names}")
 
         self._segmentation_names = segmentation_names

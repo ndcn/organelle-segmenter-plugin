@@ -45,7 +45,7 @@ class BatchProcessingView(View):
         row1 = FormRow("1.  Load workflow:", self.field_workflow_config)
 
         # output name (populate default from json when loaded)
-        self.field_segmentation_name = QLineEdit("SEGMENT")
+        self.field_segmentation_name = QLineEdit("----segmentation-names-----")
         self.field_segmentation_name.textChanged.connect(self._form_field_changed)
         row2 = FormRow("2.  Segmentation Name", self.field_segmentation_name)
 
@@ -136,7 +136,7 @@ class BatchProcessingView(View):
         self._controller.cancel_run_batch()
 
     def _form_field_changed(self, value):
-        workflow_config = self.field_workflow_config.selected_file
+        workflow_configs = self.field_workflow_config.selected_file
 
         # if isinstance(workflow_config, list):
 
@@ -150,12 +150,13 @@ class BatchProcessingView(View):
         #     else workflow_config.split("/")[-1].split(".")[0]
         # )
 
-        segmentation_name = [Path(wf).stem.split("_")[0] for wf in workflow_config]
+        segmentation_names = [Path(wf).stem.split("-")[-1] for wf in workflow_configs]
+
         channel_index = -1.0
         # channel_index = int(self.field_channel.text()) if self.field_channel.text() else None
 
         input_dir = self.field_input_dir.selected_file
         output_dir = self.field_output_dir.selected_file
         self._controller.update_batch_parameters(
-            workflow_config, channel_index, input_dir, output_dir, segmentation_name
+            workflow_configs, channel_index, input_dir, output_dir, segmentation_names
         )
