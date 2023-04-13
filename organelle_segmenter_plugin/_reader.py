@@ -103,7 +103,7 @@ def xyz_file_reader(path: PathOrPaths) -> List[LayerData]:
     data, meta, layer_type = reader_function(path)[0]
 
     # fix name and channel_axis
-    name = path.stem
+    name = Path(path).stem
     # channel_axis = meta.pop("channel_axis")
     channel_names = meta.pop("name")  # list of names for each layer
     # scale = meta.pop("scale")
