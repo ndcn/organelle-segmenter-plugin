@@ -43,11 +43,12 @@ class BatchProcessingView(View):
             mode=FileInputMode.FILE, filter="Json file (*.json)", placeholder_text="Load a JSON workflow file..."
         )
         row1 = FormRow("1.  Load workflow:", self.field_workflow_config)
+        self.field_workflow_config.file_selected.connect(self._form_field_changed)
 
         # output name (populate default from json when loaded)
-        self.field_segmentation_name = QLineEdit("----segmentation-names-----")
-        self.field_segmentation_name.textChanged.connect(self._form_field_changed)
-        row2 = FormRow("2.  Segmentation Name", self.field_segmentation_name)
+        self.field_segmentation_name = QLabel()
+        self.field_segmentation_name.setText("----segmentation-names-----")
+        row2 = FormRow("2.  Seg Names", self.field_segmentation_name)
 
         # # Channel index  # change this to radio button
         # self.field_channel = QLineEdit("segmentation")
@@ -58,20 +59,20 @@ class BatchProcessingView(View):
         # Input dir
         self.field_input_dir = DirInput(mode=FileInputMode.DIRECTORY, placeholder_text="Select a directory...")
         self.field_input_dir.file_selected.connect(self._form_field_changed)
-        row3 = FormRow("3.  Input directory:", self.field_input_dir)
+        row3 = FormRow("3.  Input dir:", self.field_input_dir)
 
         # Output dir
         self.field_output_dir = DirInput(mode=FileInputMode.DIRECTORY, placeholder_text="Select a directory...")
         self.field_output_dir.file_selected.connect(self._form_field_changed)
-        row4 = FormRow("4.  Output directory:", self.field_output_dir)
-
-        # Help
-        label = QLabel()
-        label.setText("Supported file formats: .czi (.tiff, tif, .ome.tif, .ome.tiff)")
+        row4 = FormRow("4.  Output dir:", self.field_output_dir)
 
         form = QWidget()
         form.setLayout(Form([row1, row2, row3, row4]))
         layout.addWidget(form)
+
+        # Help
+        label = QLabel()
+        label.setText("Supported file formats: .czi (.tiff, tif, .ome.tif, .ome.tiff)")
         layout.addWidget(label)
 
         # Submit
@@ -152,6 +153,7 @@ class BatchProcessingView(View):
 
         segmentation_names = [Path(wf).stem.split("-")[-1] for wf in workflow_configs]
 
+        self.field_segmentation_name.setText(f"NAMES: {', '.join(segmentation_names)}")
         channel_index = -1.0
         # channel_index = int(self.field_channel.text()) if self.field_channel.text() else None
 

@@ -2,7 +2,9 @@ from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import Dict, List
 
-from aicssegmentation.workflow.workflow_step import WorkflowStep
+# from aicssegmentation.workflow.workflow_step import WorkflowStep
+from infer_subc_2d.workflow.workflow_step import WorkflowStep
+
 from organelle_segmenter_plugin.model.channel import Channel
 
 
@@ -39,11 +41,19 @@ class IWorkflowSelectController(ABC):
         """
         pass
 
-
     @abstractmethod
     def select_workflow(self, workflow: str):
         """
         Handle user selection of workflow
+        Inputs
+            workflow: name of the workflow to select
+        """
+        pass
+
+    @abstractmethod
+    def add_workflow(self, workflow: str):
+        """
+        Handle user addition of workflow
         Inputs
             workflow: name of the workflow to select
         """
@@ -117,7 +127,12 @@ class IBatchProcessingController(ABC):
     # added segmentation_name parameter
     @abstractmethod
     def update_batch_parameters(
-        self, workflow_config: List[Path], channel_index: int, input_dir: Path, output_dir: Path, segmentation_name: List[str]
+        self,
+        workflow_config: List[Path],
+        channel_index: int,
+        input_dir: Path,
+        output_dir: Path,
+        segmentation_name: List[str],
     ):
         """
         Set / update batch processing parameters

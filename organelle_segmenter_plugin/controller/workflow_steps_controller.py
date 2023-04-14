@@ -4,8 +4,9 @@ import warnings
 from pathlib import Path
 from typing import Dict, Generator, List, Tuple, Any
 from napari.qt.threading import create_worker, GeneratorWorker
-from aicssegmentation.workflow import WorkflowStep, WorkflowDefinition  # WorkflowEngine,
-from infer_subc_2d.workflow import WorkflowEngine
+
+# from aicssegmentation.workflow import WorkflowStep, WorkflowDefinition  # WorkflowEngine,
+from infer_subc_2d.workflow import WorkflowEngine, WorkflowStep, WorkflowDefinition
 
 
 from organelle_segmenter_plugin.view.workflow_steps_view import WorkflowStepsView
@@ -58,7 +59,7 @@ class WorkflowStepsController(Controller, IWorkflowStepsController):
         if not output_file_path.lower().endswith(".json"):
             output_file_path += ".json"
         save_path = Path(output_file_path)
-        workflow_def = WorkflowDefinition(save_path.name, steps)
+        workflow_def = WorkflowDefinition(save_path.name, steps, prebuilt=False)
         self._workflow_engine.save_workflow_definition(workflow_def, save_path)
 
     def close_workflow(self) -> None:

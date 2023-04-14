@@ -56,13 +56,15 @@ class WorkflowSelectController(Controller, IWorkflowSelectController):
     def select_layer(self, layer_name: str):
         self.model.selected_layer = next(filter(lambda layer: layer.name == layer_name, self.viewer.get_layers()), None)
         self.model.channels = self._layer_reader.get_channels(self.model.selected_layer)
-        self._view.update_channels(self.model.channels, self.model.selected_channel)
+        # self.select_channel()
+        # self._view.update_channels(self.model.channels, self.model.selected_channel)
+        self._view.update_workflows(enabled=True)
 
     def unselect_layer(self):
         self.model.selected_layer = None
         self.model.channels = None
         self.model.selected_channel = None
-        self._view.update_channels(self.model.channels)
+        # self._view.update_channels(self.model.channels)
         self._view.update_workflows(enabled=False)
 
     def select_channel(self, channel: Channel):
@@ -74,27 +76,28 @@ class WorkflowSelectController(Controller, IWorkflowSelectController):
         self._view.update_workflows(enabled=False)
 
     ##  JAH:  HACK
-    def add_workflow(self, workflow_name):
+    def add_workflow(self, workflow: str):
         # self.model.active_workflow = self._workflow_engine.get_executable_workflow(workflow_name, channel_data)
         # self.model.active_workflow = self._workflow_engine.get_executable_workflow(workflow_name, channel_data)
-
         # self.viewer.add_image_layer(channel_data, name=_layer_name)  # layer 0
-
-        self.router.workflow_steps()
+        self._workflow_engine.add_workflow(workflow)
+        self.model.workflows = self._workflow_engine.workflow_definitions
 
     def select_workflow(self, workflow_name):
-        if self.model.selected_channel.index < 0:
-            # if channel.index < 1: it means we want everything...
-            channel_data = self._layer_reader.get_all_data(self.model.selected_layer)
-            _layer_name = f"0: {self.model.selected_layer.name}: FULL {workflow_name}"
-        else:
-            # maybe
-            channel_data = self._layer_reader.get_channel_data(
-                self.model.selected_channel.index, self.model.selected_layer
-            )
-            _layer_name = (
-                f"0: {self.model.selected_layer.name}: Ch[{str(self.model.selected_channel.index)}]{workflow_name}"
-            )
+        channel_data = self._layer_reader.get_all_data(self.model.selected_layer)
+        _layer_name = f"0: {self.model.selected_layer.name}:{workflow_name}"
+        # if self.model.selected_channel.index < 0:
+        #     # if channel.index < 1: it means we want everything...
+        #     channel_data = self._layer_reader.get_all_data(self.model.selected_layer)
+        #     _layer_name = f"0: {self.model.selected_layer.name}: FULL {workflow_name}"
+        # else:
+        #     # maybe
+        #     channel_data = self._layer_reader.get_channel_data(
+        #         self.model.selected_channel.index, self.model.selected_layer
+        #     )
+        #     _layer_name = (
+        #         f"0: {self.model.selected_layer.name}: Ch[{str(self.model.selected_channel.index)}]{workflow_name}"
+        #     )
 
         self.model.active_workflow = self._workflow_engine.get_executable_workflow(workflow_name, channel_data)
 
@@ -116,7 +119,7 @@ class WorkflowSelectController(Controller, IWorkflowSelectController):
 
     def _reset_channels(self):
         self.model.channels = None
-        self._view.update_channels(self.model.channels)
+        # self._view.update_channels(self.model.channels)
         self.unselect_channel()
 
     #####################################################################

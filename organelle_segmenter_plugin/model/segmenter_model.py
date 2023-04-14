@@ -22,7 +22,9 @@ class SegmenterModel:
     workflows: List[str] = None
     active_workflow: Workflow = None
 
+    # not actually using these
     prebuilt_workflows: List[str] = None
+    additional_workflows: List[str] = None
 
     def reset(self):
         """
@@ -34,3 +36,5 @@ class SegmenterModel:
         self.selected_channel = None
         self.workflows = None
         self.active_workflow = None
+        self.prebuilt_workflows = None
+        self.additional_workflows = None
