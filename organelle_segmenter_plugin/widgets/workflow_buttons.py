@@ -68,27 +68,27 @@ class WorkflowButtons(QWidget):
         self._add_buttons(workflows)  #  MAKE A BUTTON for this workflow
 
         # start with empty
-        self._additional_workflows = additional_workflows = []
-        self._add_additional_buttons(additional_workflows)  #  MAKE A BUTTON for this workflow
+        # self._additional_workflows = additional_workflows = []
+        # self._add_additional_buttons(additional_workflows)  #  MAKE A BUTTON for this workflow
 
-    def _update_additional_workflows(self, workflows: List[WorkflowDefinition]):
-        self._additional_workflows = workflows
-        # now UPDATE buttons
+    # def _update_additional_workflows(self, workflows: List[WorkflowDefinition]):
+    #     self._additional_workflows = workflows
+    #     # now UPDATE buttons
 
     def _add_labels(self):
         """
-        Add widgets and set the layout for the Step 3 instructions and the workflow buttons
+        Add widgets and set the layout for the Step 4 instructions and the workflow buttons
         """
-        self.step_3_label = QLabel("3.")
-        self.step_3_label.setAlignment(QtCore.Qt.AlignTop)
-        self.step_3_instructions = QLabel("Choose your worfklow .....")
-        self.step_3_instructions.setWordWrap(True)
+        self.step_4_label = QLabel("4.")
+        self.step_4_label.setAlignment(QtCore.Qt.AlignTop)
+        self.step_4_instructions = QLabel("Choose your worfklow .....")
+        self.step_4_instructions.setWordWrap(True)
 
-        step_3 = QWidget()
-        step_3.setLayout(Form([FormRow(self.step_3_label, self.step_3_instructions)], (0, 0, 11, 0)))
+        step_4 = QWidget()
+        step_4.setLayout(Form([FormRow(self.step_4_label, self.step_4_instructions)], (0, 0, 11, 0)))
 
-        self.step_3_instructions.setObjectName("step3InstructionsDisabled")
-        self.layout().addWidget(step_3)
+        self.step_4_instructions.setObjectName("step3InstructionsDisabled")
+        self.layout().addWidget(step_4)
 
         # Row of text labeling the columns of workflow images
         self.column_labels = QWidget()
@@ -103,16 +103,16 @@ class WorkflowButtons(QWidget):
         self.column_labels.layout().addWidget(image_input_label)
         # self.column_labels.layout().addWidget(segmentation_output_label)
 
-        self.column_labels.setFixedWidth(PAGE_CONTENT_WIDTH)
-        self.column_labels.setObjectName("columnLabelsDisabled")
-        self.layout().addWidget(self.column_labels, alignment=QtCore.Qt.AlignCenter)
+        # self.column_labels.setFixedWidth(PAGE_CONTENT_WIDTH)
+        # self.column_labels.setObjectName("columnLabelsDisabled")
+        # self.layout().addWidget(self.column_labels, alignment=QtCore.Qt.AlignCenter)
 
-        new_label = QLabel("additional workflows")
-        new_label.setAlignment(QtCore.Qt.AlignCenter)
-        # segmentation_output_label = QLabel("right column")
-        # segmentation_output_label.setAlignment(QtCore.Qt.AlignCenter)
-        self.column_labels.layout().addWidget(new_label)
-        # self.column_labels.layout().addWidget(segmentation_output_label)
+        # new_label = QLabel("additional workflows")
+        # new_label.setAlignment(QtCore.Qt.AlignCenter)
+        # # segmentation_output_label = QLabel("right column")
+        # # segmentation_output_label.setAlignment(QtCore.Qt.AlignCenter)
+        # self.column_labels.layout().addWidget(new_label)
+        # # self.column_labels.layout().addWidget(segmentation_output_label)
 
     def _add_buttons(self, workflows: List[WorkflowDefinition]):
         """
@@ -131,38 +131,54 @@ class WorkflowButtons(QWidget):
             self.layout().addWidget(button)
         #     layout.addWidget(button)
 
-        # self._layout.addLayout(layout)
-
-    def _add_additional_buttons(self, workflows: List[WorkflowDefinition]):
+    def _add_new_button(self, workflow_name: str):
         """
-        Add all buttons given a List of WorkflowDefinitions
+        Add new buttons given name of the new WorkflowDefinitions
         """
 
         # layout = QHBoxLayout()
         # layout.setSpacing(5)
-        for workflow in workflows:
-            button = QPushButton(workflow.name)
-            # button.setFixedWidth(240)
-            button.setToolTip(workflow.name)
-            button.setEnabled(False)
-            button.setObjectName(workflow.name)
-            button.clicked.connect(self._workflow_button_clicked)
-            self.layout().addWidget(button)
+        button = QPushButton(workflow_name)
+        # button.setFixedWidth(240)
+        button.setToolTip(workflow_name)
+        button.setEnabled(False)
+        button.setObjectName(workflow_name)
+        button.clicked.connect(self._workflow_button_clicked)
+        self.layout().addWidget(button)
         #     layout.addWidget(button)
 
         # self._layout.addLayout(layout)
+
+    # def _add_additional_buttons(self, workflows: List[WorkflowDefinition]):
+    #     """
+    #     Add all buttons given a List of WorkflowDefinitions
+    #     """
+
+    #     # layout = QHBoxLayout()
+    #     # layout.setSpacing(5)
+    #     for workflow in workflows:
+    #         button = QPushButton(workflow.name)
+    #         # button.setFixedWidth(240)
+    #         button.setToolTip(workflow.name)
+    #         button.setEnabled(False)
+    #         button.setObjectName(workflow.name)
+    #         button.clicked.connect(self._workflow_button_clicked)
+    #         self.layout().addWidget(button)
+    #     #     layout.addWidget(button)
+
+    #     # self._layout.addLayout(layout)
 
     def setEnabled(self, enabled: bool) -> None:
         super().setEnabled(enabled)
         if enabled:
             self.column_labels.setObjectName("columnLabels")
-            self.step_3_instructions.setObjectName("step3Instructions")
+            self.step_4_instructions.setObjectName("step3Instructions")
             self.setStyleSheet(Style.get_stylesheet("main.qss"))
 
             self._enable_buttons()
         else:
             self.column_labels.setObjectName("columnLabelsDisabled")
-            self.step_3_instructions.setObjectName("step3InstructionsDisabled")
+            self.step_4_instructions.setObjectName("step3InstructionsDisabled")
             self.setStyleSheet(Style.get_stylesheet("main.qss"))
 
             self._disable_buttons()

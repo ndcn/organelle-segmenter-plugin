@@ -1,6 +1,8 @@
 from typing import List
+from pathlib import Path
 
-from aicssegmentation.workflow.workflow_definition import WorkflowDefinition
+# from aicssegmentation.workflow.workflow_definition import WorkflowDefinition
+from infer_subc_2d.workflow.workflow_definition import WorkflowDefinition
 from napari.layers.base.base import Layer
 from qtpy.QtWidgets import (
     QComboBox,
@@ -27,12 +29,14 @@ from ._main_template import MainTemplate
 
 class WorkflowSelectView(View):
     _combo_layers: QComboBox
-    _combo_channels: QComboBox
+    # _combo_channels: QComboBox
     _load_image_warning: WarningMessage
     _workflow_buttons: WorkflowButtons
+    _channels_note: QLabel
     # _combo_workflows: QComboBox
     # _workflows: List[WorkflowDefinition]
     # _workflow_names: List[str]
+    _field_add_workflow: FileInput
 
     def __init__(self, controller: IWorkflowSelectController):
         super().__init__(template_class=MainTemplate)
@@ -43,10 +47,11 @@ class WorkflowSelectView(View):
         self.setObjectName("workflowSelectView")
 
     def load(self, model: SegmenterModel):
+        print(f"in WorkflowSelectView.load")
         self._setup_ui()
 
         self.update_layers(model.layers, model.selected_layer)
-        self.update_channels(model.channels, model.selected_channel)
+        # self.update_channels(model.channels, model.selected_channel)
         self._load_workflows(model.workflows)
 
     #    # JAH: combo_box_workflows
@@ -74,20 +79,26 @@ class WorkflowSelectView(View):
         self._combo_layers.setMaxVisibleItems(20)
         self._combo_layers.activated.connect(self._combo_layers_activated)
 
-        channels_dropdown = UiUtils.dropdown_row("2.", "Select Channels)", enabled=False)
-        self._combo_channels = channels_dropdown.widget
-        self._combo_channels.setStyleSheet("QComboBox { combobox-popup: 0; }")
-        self._combo_channels.setMaxVisibleItems(20)
-        self._combo_channels.activated.connect(self._combo_channels_activated)
+
+        # channels_dropdown = UiUtils.dropdown_row("2.", "Select Channels)", enabled=False)
+        # self._combo_channels = channels_dropdown.widget
+        # self._combo_channels.setStyleSheet("QComboBox { combobox-popup: 0; }")
+        # self._combo_channels.setMaxVisibleItems(20)
+        # self._combo_channels.activated.connect(self._combo_channels_activated)
+
+        self._channels_note = QLabel() # in case we want to update selection?
+        self._channels_note.setText("----ALL CHANNELS-----")
+        channels_note_label = FormRow("2.  Channels", self._channels_note)
 
         # Workflow config add
-        field_input_dir = FileInput(
-            mode=FileInputMode.FILE, filter="Json file (*.json)", placeholder_text="Load a JSON workflow file..."
+        self._field_add_workflow = FileInput(
+            mode=FileInputMode.FILE, filter="Json file (*.json)", placeholder_text="None loaded..."
         )
-        add_workflow = FormRow("5.  Load additional workflow:", field_input_dir)
+        add_workflow = FormRow("3.  Add  workflow:", self._field_add_workflow)
+        self._field_add_workflow.file_selected.connect(self._form_field_changed)
 
         layer_channel_selections = QWidget()
-        layer_channel_selections.setLayout(Form([layers_dropdown, channels_dropdown, add_workflow]))
+        layer_channel_selections.setLayout(Form([layers_dropdown, channels_note_label, add_workflow]))
 
         # Add all widgets
         widgets = [
@@ -132,36 +143,37 @@ class WorkflowSelectView(View):
             self._combo_layers.setEnabled(True)
             self._load_image_warning.setVisible(False)
 
-    def update_channels(self, channels: List[Channel], selected_channel: Channel = None):
-        """
-        Update / repopulate the list of selectable channels
-        Inputs:
-            channels: List of channel names
-        """
-        self._reset_combo_box(self._combo_channels)
-        # JAH:  make a default "negative" channel to NOT choose one...
-        if channels is None or len(channels) == 0:
-            self._combo_channels.setEnabled(False)
-        else:
-            model = QStandardItemModel()
-            model.appendRow(QStandardItem(self._combo_channels.itemText(0)))
 
-            for channel in channels:
-                item = QStandardItem(channel.display_name)
-                item.setData(channel, QtCore.Qt.UserRole)
-                model.appendRow(item)
+    # def update_channels(self, channels: List[Channel], selected_channel: Channel = None):
+    #     """
+    #     Update / repopulate the list of selectable channels
+    #     Inputs:
+    #         channels: List of channel names
+    #     """
+    #     self._reset_combo_box(self._combo_channels)
+    #     # JAH:  make a default "negative" channel to NOT choose one...
+    #     if channels is None or len(channels) == 0:
+    #         self._combo_channels.setEnabled(False)
+    #     else:
+    #         model = QStandardItemModel()
+    #         model.appendRow(QStandardItem(self._combo_channels.itemText(0)))
 
-            self._combo_channels.setModel(model)
+    #         for channel in channels:
+    #             item = QStandardItem(channel.display_name)
+    #             item.setData(channel, QtCore.Qt.UserRole)
+    #             model.appendRow(item)
 
-            if selected_channel is not None:
-                # TODO relying on display name isn't the best as it will probably
-                #      cause issues if channel names aren't unique
-                # TODO refactor by making Channel derive from QStandardItem and do something like this:
-                #      selected_index = model.indexFromItem(selected_channel)
-                #      self.combo_channels.setCurrentIndex(selected_index)
-                self._combo_channels.setCurrentText(selected_channel.display_name)
+    #         self._combo_channels.setModel(model)
 
-            self._combo_channels.setEnabled(True)
+    #         if selected_channel is not None:
+    #             # TODO relying on display name isn't the best as it will probably
+    #             #      cause issues if channel names aren't unique
+    #             # TODO refactor by making Channel derive from QStandardItem and do something like this:
+    #             #      selected_index = model.indexFromItem(selected_channel)
+    #             #      self.combo_channels.setCurrentIndex(selected_index)
+    #             self._combo_channels.setCurrentText(selected_channel.display_name)
+
+    #         self._combo_channels.setEnabled(True)
 
     def update_workflows(self, enabled: bool):
         """
@@ -198,11 +210,21 @@ class WorkflowSelectView(View):
         else:
             self._controller.select_layer(self._combo_layers.itemText(index))
 
-    def _combo_channels_activated(self, index: int):
-        if index == 0:
-            self._controller.unselect_channel()
-        else:
-            self._controller.select_channel(self._combo_channels.itemData(index, role=QtCore.Qt.UserRole))
+    # def _combo_channels_activated(self, index: int):
+    #     if index == 0:
+    #         self._controller.unselect_channel()
+    #     else:
+    #         self._controller.select_channel(self._combo_channels.itemData(index, role=QtCore.Qt.UserRole))
 
     def _workflow_selected(self, workflow_name: str):
         self._controller.select_workflow(workflow_name)
+
+
+    def _form_field_changed(self, value):
+        workflow_configs = self._field_add_workflow.selected_file
+        for wf in workflow_configs:
+            self._controller.add_workflow(wf)
+            self._workflow_buttons._add_new_button(Path(wf).stem)
+        self.update_workflows(enabled=True)
+        # send signal to workflow_buttons
+        
