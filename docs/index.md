@@ -4,7 +4,7 @@
 For full documentation visit [ndcn.github.io/organelle-segmenter-plugin](https://ndcn.github.io/organelle-segmenter-plugin/)
 This plugin that enables image segmentation of organelles from linearly-unmixed florescence images based on the segmenter tools provided by Allen Institute for Cell Science.  This fork is NOT a 3D (volumetric) segmentation at this time.  Instead it is a proof-of-concept which infers an "best" Z-slice / Z-projection and performes a 2D analysis.
 
-This plugin is designed to work with [infer-subc-2d](https://github.com/ergonyc/infer-subc-2d) and [aics-segmenter]( https://allencell.org/segmenter )
+This plugin is designed to work with [infer-subc](https://github.com/ergonyc/infer-subc) and [aics-segmenter]( https://allencell.org/segmenter )
 
 ## GOAL
 To measure shape, position, size, and interaction of eight organelles/cellular components (Nuclei (NU), Lysosomes (LS),Mitochondria (MT), Golgi (GL), Peroxisomes (PO), Endoplasmic Reticulum (ER), Lipid Droplet (LD), and SOMA) during differentiation of iPSCs, in order to understand the Interactome / Spatiotemporal coordination.
@@ -44,7 +44,7 @@ In the current version, there are two parts in the plugin: **workflow editor** a
 3. Select the image and channel to work on
 4. Select a workflow based on the example image and target segmentation based on user's data. Ideally, it is recommend to start with the example with very similar morphology as user's data.
 5. Click "Run All" to execute the whole workflow on the sample data.
-6. Adjust the parameters of steps, based on the intermediate results. For instruction on the details on each function and the effect of each parameter, click the tooltip button. A complete list of all functions can be found [here](https://github.com/ndcn/infer-subc-2D/blob/main/infer_subc/organelles_config/function_params.md)
+6. Adjust the parameters of steps, based on the intermediate results. For instruction on the details on each function and the effect of each parameter, click the tooltip button. A complete list of all functions can be found [here](https://github.com/ndcn/infer-subc/blob/main/infer_subc/organelles_config/function_params.md)
 7. Click "Run All" again after adjusting the parameters and repeat step 6 and 7 until the result is satisfactory.
 8. Save the workflow
 9. Close the plugin and open the **batch processing** part by (go to "Plugins" --> "organelle-segmenter-plugin" --> "batch processing")
