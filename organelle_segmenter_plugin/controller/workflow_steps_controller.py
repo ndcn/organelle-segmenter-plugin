@@ -103,7 +103,7 @@ class WorkflowStepsController(Controller, IWorkflowStepsController):
 
     def run_step(self, i: int, parameter_inputs: Dict[str, Any]) -> None:
         """
-        Run a step in the active workflow
+        Run a SINGLE step in the active workflow
         i int: index of step to run in the active workflow
         parameter_inputs: Each dictionary has the same shape as a WorkflowStep.parameter_values
         dictionary, but with the parameter values obtained from the UI instead of default values.
@@ -451,6 +451,8 @@ class WorkflowStepsController(Controller, IWorkflowStepsController):
         selected_image = self.viewer.get_active_layer()
         # BUG:  get_active_layer returns a list of a set, so we can't guarantee that the order is correct.
         # HACK: order it here.
+
+        # hack: "bool" or "uint8" labels import to napari with a fixed scaling so you cant see labels == 1
 
         step = self.model.active_workflow.workflow_definition.steps[index]
         result = self.model.active_workflow.execute_step(index, parameter_inputs, selected_image)

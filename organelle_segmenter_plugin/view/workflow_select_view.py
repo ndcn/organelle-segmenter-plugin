@@ -47,7 +47,6 @@ class WorkflowSelectView(View):
         self.setObjectName("workflowSelectView")
 
     def load(self, model: SegmenterModel):
-        print(f"in WorkflowSelectView.load")
         self._setup_ui()
 
         self.update_layers(model.layers, model.selected_layer)
