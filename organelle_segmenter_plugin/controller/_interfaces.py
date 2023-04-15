@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Dict, List
 
 # from aicssegmentation.workflow.workflow_step import WorkflowStep
-from infer_subc_2d.workflow.workflow_step import WorkflowStep
+from infer_subc.workflow.workflow_step import WorkflowStep
 
 from organelle_segmenter_plugin.model.channel import Channel
 

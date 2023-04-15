@@ -1,7 +1,7 @@
 from typing import List
 
 # from aicssegmentation.workflow import WorkflowEngine
-from infer_subc_2d.workflow import WorkflowEngine
+from infer_subc.workflow import WorkflowEngine
 from napari.utils.events.event import Event
 
 from organelle_segmenter_plugin.controller._interfaces import IWorkflowSelectController

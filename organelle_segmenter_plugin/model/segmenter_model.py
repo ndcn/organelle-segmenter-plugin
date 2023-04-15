@@ -4,7 +4,7 @@ from napari.layers import Layer
 from .channel import Channel
 
 # from aicssegmentation.workflow import Workflow
-from infer_subc_2d.workflow import Workflow
+from infer_subc.workflow import Workflow
 
 
 @dataclass

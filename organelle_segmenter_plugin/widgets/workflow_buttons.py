@@ -1,7 +1,7 @@
 from typing import List
 
 # from aicssegmentation.workflow import WorkflowDefinition
-from infer_subc_2d.workflow import WorkflowDefinition
+from infer_subc.workflow import WorkflowDefinition
 
 
 from qtpy.QtWidgets import (
