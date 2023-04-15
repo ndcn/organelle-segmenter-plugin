@@ -2,7 +2,7 @@ from typing import List
 from pathlib import Path
 
 # from aicssegmentation.workflow.workflow_definition import WorkflowDefinition
-from infer_subc_2d.workflow.workflow_definition import WorkflowDefinition
+from infer_subc.workflow.workflow_definition import WorkflowDefinition
 from napari.layers.base.base import Layer
 from qtpy.QtWidgets import (
     QComboBox,

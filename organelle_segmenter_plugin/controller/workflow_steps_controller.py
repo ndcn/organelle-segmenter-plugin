@@ -6,7 +6,7 @@ from typing import Dict, Generator, List, Tuple, Any
 from napari.qt.threading import create_worker, GeneratorWorker
 
 # from aicssegmentation.workflow import WorkflowStep, WorkflowDefinition  # WorkflowEngine,
-from infer_subc_2d.workflow import WorkflowEngine, WorkflowStep, WorkflowDefinition
+from infer_subc.workflow import WorkflowEngine, WorkflowStep, WorkflowDefinition
 
 
 from organelle_segmenter_plugin.view.workflow_steps_view import WorkflowStepsView

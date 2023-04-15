@@ -23,7 +23,7 @@ ReaderFunction = Callable[[PathOrPaths], List[LayerData]]
 
 SUPPORTED_FILENAME_PATTERNS = (".xyz", ".czi", ".tif", ".tiff")
 
-from infer_subc_2d.core.file_io import reader_function
+from infer_subc.core.file_io import reader_function
 
 # from functools import partial
 # from logging import getLogger

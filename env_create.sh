@@ -11,11 +11,11 @@ pip install napari-aicsimageio
 pip install black
 pip install pytest
 
-pip install -e ../infer-subc-2D #infer_subc_2d
+pip install -e ../infer-subc-2D #infer_subc
 pip install -e .
 
 # for ADWB remove the "editable" install
 
-pip install  .<path to infer-subc-2D> #infer_subc_2d
+pip install  .<path to infer-subc-2D> #infer_subc
 pip install  <path to orgnaelle-segmenter-npe2>
 

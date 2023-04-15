@@ -1,5 +1,5 @@
 # from aicssegmentation.workflow import WorkflowEngine
-from infer_subc_2d.workflow import WorkflowEngine
+from infer_subc.workflow import WorkflowEngine
 
 from organelle_segmenter_plugin.controller.workflow_select_controller import WorkflowSelectController
 from organelle_segmenter_plugin.controller.workflow_steps_controller import WorkflowStepsController
