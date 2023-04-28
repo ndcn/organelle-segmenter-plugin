@@ -38,7 +38,7 @@
     },
     "5": {
         "category": "postprocessing",
-        "function": "label_uint16",
+        "function": "label_bool_as_uint16",
         "parent": 4
     }
 }
