@@ -17,9 +17,10 @@
 #       - run: mkdocs gh-deploy --force
 name: Publish
 on:
-  push:
-    branches:
-      - main
+    tags:
+      - "v*"
+    # branches:
+    #   - main
 jobs:
   pypi:
     name: Upload release to PyPI
