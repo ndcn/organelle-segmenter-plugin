@@ -5,7 +5,6 @@ nav:
   #- framework: 'framework.md'
   - 'organelle_segmenter_plugin module': 
     - 'overview': 'organelle_segmenter_plugin.md'
-   
 
 plugins:
   # - mkdocs-jupyter:
