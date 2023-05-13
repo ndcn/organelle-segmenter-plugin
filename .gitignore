@@ -77,8 +77,8 @@ target/
 # OS
 .DS_Store
 
-# written by setuptools_scm
-*/_version.py
+# # written by setuptools_scm
+# */_version.py
 
 # IDE files
 .idea/
