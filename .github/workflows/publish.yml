@@ -17,6 +17,7 @@
 #       - run: mkdocs gh-deploy --force
 name: Publish
 on:
+  push:
     tags:
       - "v*"
     # branches:
