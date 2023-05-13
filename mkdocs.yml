@@ -8,8 +8,8 @@ nav:
    
 
 plugins:
-  - mkdocs-jupyter:
-      theme: dark
+  # - mkdocs-jupyter:
+  #     theme: dark
   - search
   - mkdocstrings
 

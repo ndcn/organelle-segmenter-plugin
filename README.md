@@ -8,13 +8,12 @@
 [![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/organelle-segmenter-plugin)](https://napari-hub.org/plugins/organelle-segmenter-plugin)
 
  🚧 WIP 🚧
-A plugin that enables image segmentation of organelles from linearly-unmixed florescence images based on the segmenter tools provided by Allen Institute for Cell Science.  This fork is NOT a 3D (volumetric) segmentation at this time.  Instead it is a proof-of-concept which infers an "best" Z-slice / Z-projection and performes a 2D analysis.
-
+A plugin that enables image segmentation of organelles from linearly-unmixed florescence images based on the segmenter tools provided by Allen Institute for Cell Science. 
 
 A [napari](https://napari.org/stable/) plugin to infer subcellular components leveraging [infer-subc](https://github.com/ergonyc/infer-subc) and [aics-segmenter]( https://allencell.org/segmenter )
 
 ## GOAL
-To measure shape, position, size, and interaction of eight organelles/cellular components (Nuclei (NU), Lysosomes (LS),Mitochondria (MT), Golgi (GL), Peroxisomes (PO), Endoplasmic Reticulum (ER), Lipid Droplet (LD), and SOMA) during differentiation of iPSCs, in order to understand the Interactome / Spatiotemporal coordination.
+To measure shape, position, size, and interaction of  organelles/cellular components (Nuclei (nuc, NU), Nucleus (N1), Lysosomes (LS), Mitochondria (mito, MT), Golgi (GL), Peroxisomes (perox, PO), Endoplasmic Reticulum (ER), Lipid Droplet (LD), Cellmask (soma, cellmask), and cytoplasm (cyto, CT) ) during differentiation of iPSCs, in order to understand the Interactome / Spatiotemporal coordination.
 
 🚧 WIP 🚧
  
@@ -37,22 +36,23 @@ https://napari.org/docs/plugins/index.html
 
 ## Installation 🚧 WIP 🚧
 
-### Option 1 (recommended): 
+### Option 1 (recommended): 🚧 WIP 🚧
+`organelle_segmenter_plugin` is  available on `PyPI` via: 
 
-Clone the repo and install as editable module via pip.  via [pip]:
-
-    pip install -e <path_to_cloned_repo>
-
-
-### Option 2 🚧 COMING SOON 🚧 (not yet available on pypy)
+```bash
+pip install organelle_segmenter_plugin
+```
+### Option 2 🚧 COMING SOON 🚧 (not yet available on napari hub)
 
 After you installed the lastest version of napari, you can go to "Plugins" --> "Install/Uninstall Package(s)". Then, you will be able to see all available napari plugins and you can find us by name `organelle-segmenter-plugin`. Just click the "install" button to install the Segmenter plugin.
 
-### Option 3: 🚧 COMING SOON 🚧 (not yet available on pypy)
+### Option 3: clone repo + editable install
 
-You can also install `organelle-segmenter-plugin` via [pip]:
-    pip install organelle-segmenter-plugin
-    
+```bash
+git clone https://github.com/ndcn/organelle-segmenter-plugin.git
+cd organelle-segmenter-plugin
+pip install -e .
+```
 ## Quick Start
 
 In the current version, there are two parts in the plugin: **workflow editor** and **batch processing**. The **workflow editor** allows users adjusting parameters in all the existing workflows in the lookup table, so that the workflow can be optimized on users' data. The adjusted workflow can be saved and then applied to a large batch of files using the **batch processing** part of the plugin. 
@@ -62,13 +62,14 @@ In the current version, there are two parts in the plugin: **workflow editor** a
 3. Select the image and channel to work on
 4. Select a workflow based on the example image and target segmentation based on user's data. Ideally, it is recommend to start with the example with very similar morphology as user's data.
 5. Click "Run All" to execute the whole workflow on the sample data.
-6. Adjust the parameters of steps, based on the intermediate results. For instruction on the details on each function and the effect of each parameter, click the tooltip button. A complete list of all functions can be found [here](https://github.com/ndcn/infer-subc/blob/main/infer_subc/organelles_config/function_params.md)
+6. Adjust the parameters of steps, based on the intermediate results.  A complete list of all functions can be found [here](https://github.com/ndcn/infer-subc/blob/main/infer_subc/organelles_config/function_params.md)🚧 WIP 🚧
 7. Click "Run All" again after adjusting the parameters and repeat step 6 and 7 until the result is satisfactory.
 8. Save the workflow
 9. Close the plugin and open the **batch processing** part by (go to "Plugins" --> "organelle-segmenter-plugin" --> "batch processing")
-10. Load the customized workflow (or an off-the-shelf workflow) json file
+10. Load the customized workflow saved above 
 11. Load the folder with all the images to process
 12. Click "Run"
+13. Follow the [examples](https://github.com/ndcn/infer-subc/blob/main/notebooks/14_final_workflow.ipynb) in the `infer_subc` [repo](https://github.com/ndcn/infer-subc/) for postprocessing of the saved segmentations and generating the statistics.  
 
 ## Contributing
 
@@ -88,13 +89,8 @@ If you encounter any problems, please [file an issue] along with a detailed desc
 [@napari]: https://github.com/napari
 [MIT]: http://opensource.org/licenses/MIT
 [BSD-3]: http://opensource.org/licenses/BSD-3-Clause
-[GNU GPL v3.0]: http://www.gnu.org/licenses/gpl-3.0.txt
-[GNU LGPL v3.0]: http://www.gnu.org/licenses/lgpl-3.0.txt
-[Apache Software License 2.0]: http://www.apache.org/licenses/LICENSE-2.0
-[Mozilla Public License 2.0]: https://www.mozilla.org/media/MPL/2.0/index.txt
 [cookiecutter-napari-plugin]: https://github.com/napari/cookiecutter-napari-plugin
 [file an issue]: https://github.com/ndcn/organelle-segmenter-plugin/issues
 [napari]: https://github.com/napari/napari
-[tox]: https://tox.readthedocs.io/en/latest/
 [pip]: https://pypi.org/project/pip/
 [PyPI]: https://pypi.org/

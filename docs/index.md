@@ -16,25 +16,26 @@ More details about Segmenter can be found at https://allencell.org/segmenter
 
 ----------------------------------
 
+
 ## Installation 🚧 WIP 🚧
 
-### Option 2 (recommended): 
+### Option 1 (recommended): 🚧 WIP 🚧
+`organelle_segmenter_plugin` is  available on `PyPI` via: 
 
-Clone the repo and install as editable module via pip.  via [pip]:
-
-    pip install -e <path_to_cloned_repo>
-
-
-### Option 2 🚧 COMING SOON 🚧 (not yet available on pypy)
+```bash
+pip install organelle_segmenter_plugin
+```
+### Option 2 🚧 COMING SOON 🚧 (not yet available on napari hub)
 
 After you installed the lastest version of napari, you can go to "Plugins" --> "Install/Uninstall Package(s)". Then, you will be able to see all available napari plugins and you can find us by name `organelle-segmenter-plugin`. Just click the "install" button to install the Segmenter plugin.
 
-### Option 3: 🚧 COMING SOON 🚧 (not yet available on pypy)
+### Option 3: clone repo + editable install
 
-You can also install `organelle-segmenter-plugin` via [pip]:
-
-    pip install organelle-segmenter-plugin
-    
+```bash
+git clone https://github.com/ndcn/organelle-segmenter-plugin.git
+cd organelle-segmenter-plugin
+pip install -e .
+```
 ## OVERVIEW
 
 In the current version, there are two parts in the plugin: **workflow editor** and **batch processing**. The **workflow editor** allows users adjusting parameters in all the existing workflows in the lookup table, so that the workflow can be optimized on users' data. The adjusted workflow can be saved and then applied to a large batch of files using the **batch processing** part of the plugin. 
