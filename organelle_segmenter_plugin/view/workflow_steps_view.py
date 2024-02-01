@@ -123,6 +123,7 @@ class WorkflowStepsView(View):  # pragma: no-cover
 
     def _add_workflow_steps(self, category: WorkflowStepCategory, steps: int):
         # Add category label, e.g., "Preprocessing"
+
         category_label = QLabel(category.value.upper())
         category_label.setObjectName("categoryLabel")
         self._layout.addWidget(category_label)

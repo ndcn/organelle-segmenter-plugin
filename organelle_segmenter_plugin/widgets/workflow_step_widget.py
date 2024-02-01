@@ -25,6 +25,7 @@ class WorkflowStepWidget(QWidget):
         step (WorkflowStep): WorkflowStep object for this widget
     """
 
+
     def __init__(self, step: WorkflowStep, index: int, steps_view=None, enable_button: bool = False):
         super().__init__()
         if step is None:
@@ -56,6 +57,12 @@ class WorkflowStepWidget(QWidget):
 
         buttons.layout().addWidget(self.button)
 
+        # TODO: add info button here
+        info_popup = QPushButton("Info")
+        btn_workflow_step_info = QPushButton("ⓘ")
+        btn_workflow_step_info.setObjectName("stepInfoButton")
+        btn_workflow_step_info.clicked.connect(self._btn_info_clicked)
+
         if not enable_button:
             self.button.setDisabled(True)
         box_contents = QVBoxLayout()
@@ -66,6 +73,49 @@ class WorkflowStepWidget(QWidget):
         box = CollapsibleBox(step_name, box_contents, self)
 
         layout.addWidget(box)
+
+    def _setup_info_window(self):
+        self.window_workflow_diagram = QScrollArea()
+
+        # TODO: remove this when dimension order refactor happens
+        # color_channel_size: int = min(np.shape(self._workflow.workflow_definition.diagram_image))
+        # min_index: int = np.shape(self._workflow.workflow_definition.diagram_image).index(color_channel_size)
+
+        # img_data = np.moveaxis(self._workflow.workflow_definition.diagram_image, min_index, -1)
+        # img = QImage(img_data, img_data.shape[1], img_data.shape[0], QImage.Format.Format_RGB888)
+        # diagram.setPixmap(QPixmap(img).scaledToWidth(1000, Qt.TransformationMode.SmoothTransformation))
+        """
+        steps = 0
+        wdgts = []
+        for cat in WorkflowStepCategory:
+            header_text = cat.value.upper()
+            for step in filter(lambda step: step.category == cat, self._workflow.workflow_definition.steps):
+                # number.  step name
+                name = step.name
+                wdgts.append(header_text + f"\n {steps}:  {name}")
+                steps = steps + 1
+
+        diagram = QLabel().setText("\n".join(wdgts))
+
+        self.window_workflow_diagram.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
+        self.window_workflow_diagram.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        self.window_workflow_diagram.setFixedWidth(1000)
+        self.window_workflow_diagram.setMinimumHeight(800)
+        self.window_workflow_diagram.setWidget(diagram)
+        """
+        # TODO: create this popup and fill it with the annoataion text
+        pass
+
+    def _btn_info_clicked(self, checked: bool):
+        self.window_workflow_diagram.show()
+
+    # stub for adding annotation to workflow 
+    def get_workflow_step_annotation(self) -> str:
+        """
+        Returns a string annotation for the current step
+        """
+        return self.step.annotation
+
 
     def get_workflow_step_with_inputs(self) -> WorkflowStep:
         """
